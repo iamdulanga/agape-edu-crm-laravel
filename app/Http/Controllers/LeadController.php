@@ -3,16 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lead;
+use App\Models\Activity;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class LeadController extends Controller
 {
     public function index()
     {
         $leads = Lead::with('assignedUser')
-                    ->latest()
-                    ->get();
+            ->latest()
+            ->get();
+        $assignableUsers = User::whereHas('roles', function($query) {
+            $query->whereIn('name', ['counselor', 'manager']);
+        })->get();        
 
         return view('leads.index', compact('leads'));
     }
@@ -42,7 +46,7 @@ class LeadController extends Controller
         Lead::create($validated);
 
         return redirect()->route('leads.index')
-                        ->with('success', 'Lead created successfully!');
+            ->with('success', 'Lead created successfully!');
     }
 
     public function show(Lead $lead)
@@ -76,7 +80,7 @@ class LeadController extends Controller
         $lead->update($validated);
 
         return redirect()->route('leads.index')
-                        ->with('success', 'Lead updated successfully!');
+            ->with('success', 'Lead updated successfully!');
     }
 
     public function destroy(Lead $lead)
@@ -84,6 +88,62 @@ class LeadController extends Controller
         $lead->delete();
 
         return redirect()->route('leads.index')
-                        ->with('success', 'Lead deleted successfully!');
+            ->with('success', 'Lead deleted successfully!');
+    }
+
+    // Update the updateStatus method:
+    public function updateStatus(Request $request, Lead $lead)
+    {
+        $request->validate([
+            'status' => 'required|in:new,contacted,qualified,converted,rejected'
+        ]);
+
+        $oldStatus = $lead->status;
+        $lead->update(['status' => $request->status]);
+
+        // Log status change - FIXED: use auth()->id() directly
+        Activity::create([
+            'user_id' => $request->user()->id, // This works in controller methods
+            'lead_id' => $lead->id,
+            'action' => 'status_changed',
+            'description' => "Status changed from {$oldStatus} to {$request->status}",
+            'metadata' => ['old_status' => $oldStatus, 'new_status' => $request->status]
+        ]);
+
+        return redirect()->route('leads.index')
+            ->with('success', "Lead status updated to {$request->status}!");
+    }
+
+    // Update the bulkStatusUpdate method:
+    public function bulkStatusUpdate(Request $request)
+    {
+        $request->validate([
+            'lead_ids' => 'required|array',
+            'lead_ids.*' => 'exists:leads,id',
+            'status' => 'required|in:new,contacted,qualified,converted,rejected'
+        ]);
+
+        $updatedCount = 0;
+
+        foreach ($request->lead_ids as $leadId) {
+            $lead = Lead::find($leadId);
+            if ($lead) {
+                $oldStatus = $lead->status;
+                $lead->update(['status' => $request->status]);
+
+                Activity::create([
+                    'user_id' => $request->user()->id, // This works in controller methods
+                    'lead_id' => $lead->id,
+                    'action' => 'status_changed',
+                    'description' => "Status changed from {$oldStatus} to {$request->status}",
+                    'metadata' => ['old_status' => $oldStatus, 'new_status' => $request->status]
+                ]);
+
+                $updatedCount++;
+            }
+        }
+
+        return redirect()->route('leads.index')
+            ->with('success', "{$updatedCount} leads status updated to {$request->status}!");
     }
 }
