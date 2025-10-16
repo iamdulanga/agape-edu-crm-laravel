@@ -83,10 +83,6 @@ class LeadController extends Controller
             ->with('success', 'Lead updated successfully!');
     }
 
-    return redirect()->route('leads.index')->with('success', 'Lead updated successfully!');
-}
-
-
     public function destroy(Lead $lead)
     {
         $lead->delete();
