@@ -8,6 +8,23 @@
     </h2>
 @endsection
 
+<div>
+    @if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if (session('error'))
+    <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+        {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+</div>
+
 @section('content')
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -15,7 +32,7 @@
                 <div class="p-6">
                     <div class="mb-6 flex items-center justify-between">
                         <h3 class="text-lg font-medium">All Leads</h3>
-                        <button 
+                        <button
                             onclick="toggleModal('add-lead-modal')"
                             class="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
                         >
@@ -78,7 +95,11 @@
                                             {{ $lead->preferred_universities ?? 'N/A' }}
                                         </td>
                                         <td class="whitespace-nowrap px-6 py-4 text-sm font-medium">
-                                            <button class="mr-3 text-blue-600 hover:text-blue-900">Edit</button>
+                                           <button
+    class="mr-3 text-blue-600 hover:text-blue-900"
+    onclick="openEditModal({{ $lead->toJson() }})">
+    Edit
+</button>
                                             <form action="{{ route('leads.destroy', $lead) }}" method="POST" class="inline">
                                                 @csrf
                                                 @method('DELETE')
@@ -103,4 +124,66 @@
 
     <!-- Add Lead Modal -->
     @include('leads.partials.create-modal')
+
+    @push('scripts')
+<script>
+function toggleModal(id) {
+    const modal = document.getElementById(id);
+    modal.classList.toggle('hidden');
+}
+
+// 🧠 Open Edit Modal & Fill Data
+function openEditModal(lead) {
+    document.getElementById('edit_lead_id').value = lead.id;
+    document.getElementById('edit_first_name').value = lead.first_name || '';
+    document.getElementById('edit_last_name').value = lead.last_name || '';
+    document.getElementById('edit_age').value = lead.age || '';
+    document.getElementById('edit_city').value = lead.city || '';
+    document.getElementById('edit_email').value = lead.email || '';
+    document.getElementById('edit_phone').value = lead.phone || '';
+    document.getElementById('edit_passport').value = lead.passport || '';
+    document.getElementById('edit_inquiry_date').value = lead.inquiry_date || '';
+    document.getElementById('edit_study_level').value = lead.study_level || '';
+    document.getElementById('edit_priority').value = lead.priority || '';
+    document.getElementById('edit_preferred_universities').value = lead.preferred_universities || '';
+    document.getElementById('edit_special_notes').value = lead.special_notes || '';
+
+    toggleModal('edit-lead-modal');
+}
+
+// 🧩 Handle Edit Form Submit (AJAX)
+document.getElementById('edit-lead-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const leadId = document.getElementById('edit_lead_id').value;
+    const formData = new FormData(this);
+
+    fetch(`/leads/${leadId}`, {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': formData.get('_token'),
+            'Accept': 'application/json',
+        },
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Failed to update lead');
+        return response.text();
+    })
+    .then(() => {
+        toggleModal('edit-lead-modal');
+        location.reload(); // ✅ reload table (simplest way)
+    })
+    .catch(err => {
+        console.error(err);
+        alert('Error updating lead');
+    });
+});
+</script>
+@endpush
+
+ <!-- Add Lead Modal -->
+    @include('leads.partials.create-modal')
+
+    <!-- Edit Lead Modal -->
+    @include('leads.partials.edit-modal')
 @endsection

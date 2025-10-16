@@ -55,29 +55,33 @@ class LeadController extends Controller
         return view('leads.edit', compact('lead'));
     }
 
-    public function update(Request $request, Lead $lead)
-    {
-        $validated = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'nullable|email|max:255',
-            'phone' => 'nullable|string|max:20',
-            'age' => 'nullable|integer|min:1|max:100',
-            'city' => 'nullable|string|max:255',
-            'passport' => 'nullable|in:yes,no',
-            'inquiry_date' => 'nullable|date',
-            'study_level' => 'nullable|in:foundation,diploma,bachelor,master,phd',
-            'priority' => 'nullable|in:very_high,high,medium,low,very_low',
-            'preferred_universities' => 'nullable|string|max:1000',
-            'special_notes' => 'nullable|string|max:2000',
-            'status' => 'required|in:new,contacted,qualified,converted,rejected',
-        ]);
+   public function update(Request $request, Lead $lead)
+{
+    $validated = $request->validate([
+        'first_name' => 'required|string|max:255',
+        'last_name' => 'required|string|max:255',
+        'email' => 'nullable|email|max:255',
+        'phone' => 'nullable|string|max:20',
+        'age' => 'nullable|integer|min:1|max:100',
+        'city' => 'nullable|string|max:255',
+        'passport' => 'nullable|in:yes,no',
+        'inquiry_date' => 'nullable|date',
+        'study_level' => 'nullable|in:foundation,diploma,bachelor,master,phd',
+        'priority' => 'nullable|in:very_high,high,medium,low,very_low',
+        'preferred_universities' => 'nullable|string|max:1000',
+        'special_notes' => 'nullable|string|max:2000',
+        'status' => 'nullable|in:new,contacted,qualified,converted,rejected',
+    ]);
 
-        $lead->update($validated);
+    $lead->update($validated);
 
-        return redirect()->route('leads.index')
-                        ->with('success', 'Lead updated successfully!');
+    if ($request->expectsJson()) {
+        return response()->json(['success' => true, 'lead' => $lead]);
     }
+
+    return redirect()->route('leads.index')->with('success', 'Lead updated successfully!');
+}
+
 
     public function destroy(Lead $lead)
     {
