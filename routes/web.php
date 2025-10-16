@@ -21,13 +21,13 @@ Route::middleware('guest')->group(function () {
 // Protected routes
 Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
-    
+
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    
+
     // Leads Management
     Route::resource('leads', LeadController::class);
-    
+
     // Optional: Redirect root to dashboard
     Route::get('/', [DashboardController::class, 'index'])->name('home');
 
