@@ -13,7 +13,7 @@ class LeadController extends Controller
     {
         $leads = Lead::with('assignedUser')
             ->latest()
-            ->get();
+            ->paginate(15);
         $assignableUsers = User::whereHas('roles', function($query) {
             $query->whereIn('name', ['counselor', 'manager']);
         })->get();        

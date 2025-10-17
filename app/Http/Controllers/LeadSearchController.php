@@ -58,7 +58,7 @@ class LeadSearchController extends Controller
             }
         }
 
-        $leads = $query->with('assignedUser')->latest()->get();
+        $leads = $query->with('assignedUser')->latest()->paginate(15)->withQueryString();
 
         return view('leads.index', compact('leads'));
     }
