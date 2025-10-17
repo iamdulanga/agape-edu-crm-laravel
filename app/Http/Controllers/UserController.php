@@ -28,12 +28,29 @@ class UserController extends Controller
         $currentUser = $request->user();
         $requestedRole = $validated['role'];
 
-        // Owner can create any role
-        // Manager can only create manager and counselor
+        // Counselors cannot create any accounts (middleware should prevent this, but double-check)
+        if ($currentUser->hasRole('counselor')) {
+            return redirect()->back()
+                ->with('error', 'Counselors do not have permission to create accounts.');
+        }
+
+        // Manager restrictions: can only create counselors
         if ($currentUser->hasRole('manager')) {
-            if ($requestedRole === 'owner') {
+            if ($requestedRole === 'owner' || $requestedRole === 'manager') {
                 return redirect()->back()
-                    ->with('error', 'Managers cannot create Owner accounts.');
+                    ->with('error', 'Managers can only create Counselor accounts.');
+            }
+        }
+
+        // Owner restrictions: cannot create another owner (only 1 owner in system)
+        if ($currentUser->hasRole('owner')) {
+            if ($requestedRole === 'owner') {
+                // Check if owner already exists
+                $ownerRole = Role::where('name', 'owner')->first();
+                if ($ownerRole && $ownerRole->users()->exists()) {
+                    return redirect()->back()
+                        ->with('error', 'There can only be one Owner in the system.');
+                }
             }
         }
 
