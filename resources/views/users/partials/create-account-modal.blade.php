@@ -63,11 +63,20 @@
                                     <select name="role" id="role" required
                                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
                                         <option value="">Select a role</option>
-                                        @if(auth()->user()->hasRole('owner'))
-                                            <option value="owner">Owner</option>
+                                        @php
+                                            $currentUser = auth()->user();
+                                            $ownerRole = \App\Models\Role::where('name', 'owner')->first();
+                                            $ownerExists = $ownerRole && $ownerRole->users()->exists();
+                                        @endphp
+                                        
+                                        @if($currentUser->hasRole('owner'))
+                                            {{-- Owner can create Managers and Counselors, but NOT another Owner --}}
+                                            <option value="manager">Manager</option>
+                                            <option value="counselor">Counselor</option>
+                                        @elseif($currentUser->hasRole('manager'))
+                                            {{-- Manager can only create Counselors --}}
+                                            <option value="counselor">Counselor</option>
                                         @endif
-                                        <option value="manager">Manager</option>
-                                        <option value="counselor">Counselor</option>
                                     </select>
                                 </div>
                             </div>
