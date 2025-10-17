@@ -51,7 +51,7 @@ class UserController extends Controller
             $user->roles()->attach($role);
         }
 
-        return redirect()->route('leads.index')
+        return redirect()->route('users.index')
             ->with('success', "User '{$user->name}' created successfully as {$requestedRole}!");
     }
 
@@ -82,7 +82,7 @@ class UserController extends Controller
         $userName = $user->name;
         $user->delete();
 
-        return redirect()->route('leads.index')
+        return redirect()->route('users.index')
             ->with('success', "User '{$userName}' deleted successfully!");
     }
 }

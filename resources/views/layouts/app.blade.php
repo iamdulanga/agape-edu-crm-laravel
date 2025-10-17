@@ -24,6 +24,11 @@
                     </div>
                     
                     <div class="flex items-center space-x-4">
+                        <a href="{{ route('dashboard') }}" class="text-gray-600 hover:text-gray-900">Dashboard</a>
+                        <a href="{{ route('leads.index') }}" class="text-gray-600 hover:text-gray-900">Leads</a>
+                        @if(auth()->user()->hasRole('owner') || auth()->user()->hasRole('manager'))
+                            <a href="{{ route('users.index') }}" class="text-gray-600 hover:text-gray-900">Users</a>
+                        @endif
                         <span class="text-gray-700">{{ auth()->user()->name }}</span>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

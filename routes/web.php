@@ -7,6 +7,7 @@ use App\Http\Controllers\LeadSearchController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserManagementController;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
@@ -50,6 +51,7 @@ Route::middleware('auth')->group(function () {
 
     // User Management Routes (Role-based access control)
     Route::middleware(['role:owner,manager'])->group(function () {
+        Route::get('/users', [UserManagementController::class, 'index'])->name('users.index');
         Route::post('/users', [UserController::class, 'store'])->name('users.store');
         Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
     });

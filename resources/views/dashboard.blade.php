@@ -45,6 +45,11 @@
                         <a href="{{ route('leads.index') }}" class="inline-block rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">
                             Manage Leads
                         </a>
+                        @if(in_array('owner', $userRoles) || in_array('manager', $userRoles))
+                            <a href="{{ route('users.index') }}" class="ml-3 inline-block rounded-md bg-green-600 px-4 py-2 text-white hover:bg-green-700">
+                                Manage Users
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>
