@@ -75,6 +75,7 @@ class LeadController extends Controller
         'preferred_universities' => 'nullable|string|max:1000',
         'special_notes' => 'nullable|string|max:2000',
         'status' => 'nullable|in:new,contacted,qualified,converted,rejected',
+        'assigned_to' => 'nullable|exists:users,id',
     ]);
 
     $lead->update($validated);
