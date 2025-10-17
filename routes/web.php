@@ -6,6 +6,8 @@ use App\Http\Controllers\LeadAssignmentController;
 use App\Http\Controllers\LeadSearchController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LeadController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserManagementController;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
@@ -46,4 +48,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/leads/{lead}/assign', [LeadAssignmentController::class, 'assign'])->name('leads.assign');
     Route::post('/leads/{lead}/unassign', [LeadAssignmentController::class, 'unassign'])->name('leads.unassign');
     Route::post('/leads/{lead}/status', [LeadController::class, 'updateStatus'])->name('leads.status.update');
+
+    // User Management Routes (Role-based access control)
+    Route::middleware(['role:owner,manager'])->group(function () {
+        Route::get('/users', [UserManagementController::class, 'index'])->name('users.index');
+        Route::post('/users', [UserController::class, 'store'])->name('users.store');
+        Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    });
 });
