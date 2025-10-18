@@ -86,11 +86,15 @@
     <!-- User Info & Logout - Image eke rawindu section wage -->
     <div class="p-4 border-t border-gray-700 bg-gray-800">
         <!-- User Info -->
-        <div class="flex items-center mb-4 px-2">
+        <a href="{{ route('profile.show') }}" class="flex items-center mb-4 px-2 hover:bg-gray-700 rounded-lg transition-all duration-200">
             <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
-                <span class="text-sm font-bold text-white">
-                    {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-                </span>
+                @if(auth()->user()->avatar)
+                    <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="{{ auth()->user()->name }}" class="w-8 h-8 rounded-full object-cover">
+                @else
+                    <span class="text-sm font-bold text-white">
+                        {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                    </span>
+                @endif
             </div>
             <div class="ml-3 min-w-0 flex-1">
                 <p class="text-sm font-medium text-white truncate">{{ auth()->user()->name }}</p>
@@ -101,7 +105,7 @@
                     {{ $role ? ucfirst($role->name) : 'User' }}
                 </p>
             </div>
-        </div>
+        </a>
 
         <!-- Logout Button -->
         <form method="POST" action="{{ route('logout') }}">
