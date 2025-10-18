@@ -24,23 +24,6 @@
         <!-- Main Content Area -->
         <div class="flex-1 flex flex-col overflow-y-auto">
 
-            <!-- Top Navbar -->
-            <nav class="bg-white shadow-sm border-b px-6 py-4 flex justify-between items-center sticky top-0 z-20">
-                <a href="{{ route('dashboard') }}" class="text-xl font-bold text-gray-800">AGAPE EDU CRM</a>
-                <div class="flex items-center space-x-4">
-                    <a href="{{ route('dashboard') }}" class="text-gray-600 hover:text-gray-900">Dashboard</a>
-                    <a href="{{ route('leads.index') }}" class="text-gray-600 hover:text-gray-900">Leads</a>
-                    @if(auth()->user()->hasRole('owner') || auth()->user()->hasRole('manager'))
-                        <a href="{{ route('users.index') }}" class="text-gray-600 hover:text-gray-900">Users</a>
-                    @endif
-                    <span class="text-gray-700">{{ auth()->user()->name }}</span>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="text-gray-600 hover:text-gray-900">Logout</button>
-                    </form>
-                </div>
-            </nav>
-
             <!-- Header (Optional) -->
             @hasSection('header')
                 <header class="bg-white shadow-sm px-6 py-4">
