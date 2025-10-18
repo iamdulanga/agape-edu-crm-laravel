@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@extends('layouts.sidebar-layout')
+
 
 @section('title', 'Dashboard')
 
@@ -27,7 +29,7 @@
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <h3 class="mb-4 text-lg font-medium">Welcome, {{ $user->name }}!</h3>
-                    
+
                     @if(in_array('owner', $userRoles))
                         <p class="mb-4">You are viewing the Owner Dashboard with full system access.</p>
                         @include('dashboard.partials.owner-stats')
