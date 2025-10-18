@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@extends('layouts.sidebar-layout')
 
 @section('title', 'Leads Management')
 
@@ -11,7 +12,7 @@
         <div class="flex items-center space-x-2">
             <!-- Create Account Button (Only for Owners and Managers) -->
             @if(auth()->user()->hasRole('owner') || auth()->user()->hasRole('manager'))
-                <button 
+                <button
                     onclick="toggleModal('create-account-modal')"
                     class="inline-flex items-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                 >
@@ -21,7 +22,7 @@
                     Create Account
                 </button>
             @endif
-            
+
             <!-- Export Button -->
             <form action="{{ route('leads.export') }}" method="POST" class="inline">
                 @csrf
@@ -32,9 +33,9 @@
                     Export
                 </button>
             </form>
-            
+
             <!-- Add Lead Button -->
-            <button 
+            <button
                 onclick="toggleModal('add-lead-modal')"
                 class="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
@@ -91,14 +92,14 @@
             })->get();
         }
     @endphp
-    
+
     <div class="space-y-6">
         <!-- Stats Cards -->
         @include('leads.partials.stats-cards')
-        
+
         <!-- Search and Filters -->
         @include('leads.partials.search-filters')
-        
+
         <!-- Bulk Actions -->
         @include('leads.partials.bulk-actions')
 
@@ -193,7 +194,7 @@
                                             </div>
                                         </div>
                                         @if(auth()->user()->hasRole('manager') || auth()->user()->hasRole('owner'))
-                                            <button onclick="toggleModal('unassign-modal-{{ $lead->id }}')" 
+                                            <button onclick="toggleModal('unassign-modal-{{ $lead->id }}')"
                                                     class="mt-1 text-xs text-red-600 hover:text-red-900">
                                                 Unassign
                                             </button>
@@ -206,13 +207,21 @@
                                             <span class="text-sm">Unassigned</span>
                                         </div>
                                         @if(auth()->user()->hasRole('manager') || auth()->user()->hasRole('owner'))
-                                            <button onclick="toggleModal('assign-modal-{{ $lead->id }}')" 
+                                            <button onclick="toggleModal('assign-modal-{{ $lead->id }}')"
                                                     class="mt-1 text-xs text-blue-600 hover:text-blue-900">
                                                 Assign
                                             </button>
                                         @endif
                                     @endif
                                 </td>
+                                <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
+                                    <div class="flex justify-end space-x-2">
+                                        <button onclick="toggleModal('status-modal-{{ $lead->id }}')"
+                                                class="inline-flex items-center rounded-md bg-green-50 px-2.5 py-1.5 text-xs font-medium text-green-700 hover:bg-green-100">
+                                            Status
+                                        </button>
+                                        <a href="{{ route('leads.edit', $lead) }}"
+                                           class="inline-flex items-center rounded-md bg-blue-50 px-2.5 py-1.5 text-xs font-medium text-blue-700 hover:bg-blue-100">
                                 <td class="whitespace-nowrap px-6 py-4">
                                     <div class="flex items-center space-x-2">
                                         <button onclick="toggleModal('status-modal-{{ $lead->id }}')" 
@@ -232,6 +241,8 @@
                                         <form action="{{ route('leads.destroy', $lead) }}" method="POST" class="inline">
                                             @csrf
                                             @method('DELETE')
+                                            <button type="submit"
+                                                    class="inline-flex items-center rounded-md bg-red-50 px-2.5 py-1.5 text-xs font-medium text-red-700 hover:bg-red-100"
                                             <button type="submit" 
                                                     class="inline-flex items-center rounded-md bg-red-600 px-3 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2" 
                                                     onclick="return confirm('Are you sure you want to delete this lead?')">
@@ -247,10 +258,10 @@
 
                             <!-- Status Update Modal for each lead -->
                             @include('leads.partials.status-modal', ['lead' => $lead])
-                            
+
                             <!-- Assignment Modal for each lead -->
                             @include('leads.partials.assign-modal', ['lead' => $lead])
-                            
+
                             <!-- Unassign Modal for each lead -->
                             @include('leads.partials.unassign-modal', ['lead' => $lead])
 
@@ -263,7 +274,7 @@
                                         </svg>
                                         <h3 class="text-lg font-medium text-gray-900">No leads found</h3>
                                         <p class="mt-1 text-sm text-gray-500">Get started by creating a new lead.</p>
-                                        <button 
+                                        <button
                                             onclick="toggleModal('add-lead-modal')"
                                             class="mt-4 inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                                         >
