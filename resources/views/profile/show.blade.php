@@ -51,7 +51,7 @@
             $userRole = $user->roles->first();
             $roleName = $userRole ? $userRole->name : 'user';
             $canEditUsername = in_array($roleName, ['owner', 'manager']);
-            $canDeleteAccount = $roleName === 'counselor';
+            $canDeleteAccount = !in_array($roleName, ['owner', 'manager', 'counselor']);
         @endphp
 
         <!-- Profile Information Card -->
@@ -245,7 +245,15 @@
                             <div class="ml-3">
                                 <h3 class="text-sm font-medium text-gray-800">Account Deletion Restricted</h3>
                                 <div class="mt-2 text-sm text-gray-700">
-                                    <p>You cannot delete your account. Contact your manager or owner for assistance.</p>
+                                    @if($roleName === 'owner')
+                                        <p>You cannot delete your account. Contact the system administrator for assistance.</p>
+                                    @elseif($roleName === 'manager')
+                                        <p>You cannot delete your account. Contact the owner for assistance.</p>
+                                    @elseif($roleName === 'counselor')
+                                        <p>You cannot delete your account. Contact your manager for assistance.</p>
+                                    @else
+                                        <p>You cannot delete your account. Contact your manager or owner for assistance.</p>
+                                    @endif
                                 </div>
                                 <div class="mt-4">
                                     <button disabled
