@@ -212,15 +212,22 @@
                                             </button>
                                         @endif
                                     @endif
+                                    @once
+                                        <style>
+                                            /* Make the table fit its container to avoid horizontal scrolling */
+                                            .overflow-x-auto table { width: 100% !important; min-width: 0 !important; table-layout: auto; }
+                                            /* Reduce vertical spacing in table rows/cells */
+                                            .overflow-x-auto table th,
+                                            .overflow-x-auto table td {
+                                                padding-top: 0.5rem;
+                                                padding-bottom: 0.5rem;
+                                                padding-left: 0.75rem;
+                                                padding-right: 0.75rem;
+                                            }
+                                        </style>
+                                    @endonce
                                 </td>
-                                <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
-                                    <div class="flex justify-end space-x-2">
-                                        <button onclick="toggleModal('status-modal-{{ $lead->id }}')"
-                                                class="inline-flex items-center rounded-md bg-green-50 px-2.5 py-1.5 text-xs font-medium text-green-700 hover:bg-green-100">
-                                            Status
-                                        </button>
-                                        <a href="{{ route('leads.edit', $lead) }}"
-                                           class="inline-flex items-center rounded-md bg-blue-50 px-2.5 py-1.5 text-xs font-medium text-blue-700 hover:bg-blue-100">
+                                
                                 <td class="whitespace-nowrap px-6 py-4">
                                     <div class="flex items-center space-x-2">
                                         <button onclick="toggleModal('status-modal-{{ $lead->id }}')" 
