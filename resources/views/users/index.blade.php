@@ -188,3 +188,14 @@
         @include('users.partials.create-account-modal')
     @endif
 @endsection
+
+@push('scripts')
+<script>
+    function toggleModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.toggle('hidden');
+        }
+    }
+</script>
+@endpush
