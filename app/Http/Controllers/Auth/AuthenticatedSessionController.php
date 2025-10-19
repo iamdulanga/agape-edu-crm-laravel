@@ -27,6 +27,10 @@ class AuthenticatedSessionController extends Controller
             'password' => $request->password
         ], $request->boolean('remember'))) {
             $request->session()->regenerate();
+            
+            // Update last login timestamp
+            Auth::user()->update(['last_login_at' => now()]);
+            
             return redirect()->intended(route('dashboard'));
         }
 
@@ -36,6 +40,10 @@ class AuthenticatedSessionController extends Controller
             'password' => $request->password
         ], $request->boolean('remember'))) {
             $request->session()->regenerate();
+            
+            // Update last login timestamp
+            Auth::user()->update(['last_login_at' => now()]);
+            
             return redirect()->intended(route('dashboard'));
         }
 
