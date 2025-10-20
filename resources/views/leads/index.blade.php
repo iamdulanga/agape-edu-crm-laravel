@@ -116,26 +116,25 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th scope="col" class="w-12 px-6 py-3 text-left">
+                            <th scope="col" class="w-12 px-2 py-3 text-left">
                                 <input type="checkbox" id="select-all" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Student</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Age</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Location</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Contact</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Status</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Priority</th>
-                            <!-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Assigned To</th> -->
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Actions</th>
+                            <th scope="col" class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Student</th>
+                            <th scope="col" class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Age</th>
+                            <th scope="col" class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Location</th>
+                            <th scope="col" class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Contact</th>
+                            <th scope="col" class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Status</th>
+                            <th scope="col" class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Priority</th>
+                            <th scope="col" class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200 bg-white">
                         @forelse($leads as $lead)
                             <tr class="transition-colors hover:bg-gray-50" data-lead-id="{{ $lead->id }}">
-                                <td class="whitespace-nowrap px-6 py-4">
+                                <td class="whitespace-nowrap px-2 py-4">
                                     <input type="checkbox" name="lead_ids[]" value="{{ $lead->id }}" class="lead-checkbox h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
                                 </td>
-                                <td class="whitespace-nowrap px-6 py-4">
+                                <td class="whitespace-nowrap px-2 py-4">
                                     <div class="flex items-center">
                                         <div class="h-10 w-10 flex-shrink-0">
                                             @if($lead->avatar)
@@ -156,10 +155,10 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="whitespace-nowrap px-6 py-4">
+                                <td class="whitespace-nowrap px-2 py-4">
                                     <div class="text-sm text-gray-900">{{ $lead->age ?? 'N/A' }}</div>
                                 </td>
-                                <td class="whitespace-nowrap px-6 py-4">
+                                <td class="whitespace-nowrap px-2 py-4">
                                     <div class="flex items-center text-sm text-gray-900">
                                         <svg class="mr-1.5 h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
@@ -168,7 +167,7 @@
                                         {{ $lead->city ?? 'N/A' }}
                                     </div>
                                 </td>
-                                <td class="whitespace-nowrap px-6 py-4">
+                                <td class="whitespace-nowrap px-2 py-4">
                                     <div class="flex items-center text-sm text-gray-900">
                                         <svg class="mr-1.5 h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
@@ -176,10 +175,10 @@
                                         {{ $lead->phone ?? 'N/A' }}
                                     </div>
                                 </td>
-                                <td class="whitespace-nowrap px-6 py-4">
+                                <td class="whitespace-nowrap px-2 py-4">
                                     @include('leads.partials.status-badge', ['status' => $lead->status])
                                 </td>
-                                <td class="whitespace-nowrap px-6 py-4">
+                                <td class="whitespace-nowrap px-2 py-4">
                                     @include('leads.partials.priority-badge', ['priority' => $lead->priority])
                                 </td>
                                 <!-- <td class="whitespace-nowrap px-6 py-4">
@@ -232,7 +231,7 @@
                                     @endonce
                                 </td> -->
                                 
-                                <td class="whitespace-nowrap px-6 py-4">
+                                <td class="whitespace-nowrap px-2 py-4">
                                     <div class="flex items-center space-x-2">
                                         <button onclick="toggleModal('status-modal-{{ $lead->id }}')" 
                                                 class="inline-flex items-center rounded-md bg-green-600 px-3 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
