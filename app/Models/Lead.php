@@ -26,6 +26,7 @@ class Lead extends Model
         'special_notes',
         'status',
         'assigned_to',
+        'avatar', // Add avatar to fillable
     ];
 
     protected $casts = [

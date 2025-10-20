@@ -41,7 +41,13 @@ class LeadController extends Controller
             'priority' => 'nullable|in:very_high,high,medium,low,very_low',
             'preferred_universities' => 'nullable|string|max:1000',
             'special_notes' => 'nullable|string|max:2000',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate avatar
         ]);
+
+        if ($request->hasFile('avatar')) {
+            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            $validated['avatar'] = $avatarPath;
+        }
 
         Lead::create($validated);
 

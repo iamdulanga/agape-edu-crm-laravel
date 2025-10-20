@@ -125,7 +125,7 @@
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Contact</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Status</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Priority</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Assigned To</th>
+                            <!-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Assigned To</th> -->
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Actions</th>
                         </tr>
                     </thead>
@@ -138,11 +138,15 @@
                                 <td class="whitespace-nowrap px-6 py-4">
                                     <div class="flex items-center">
                                         <div class="h-10 w-10 flex-shrink-0">
-                                            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
-                                                <span class="font-medium text-blue-800">
-                                                    {{ substr($lead->first_name, 0, 1) }}{{ substr($lead->last_name, 0, 1) }}
-                                                </span>
-                                            </div>
+                                            @if($lead->avatar)
+                                                <img src="{{ asset('storage/' . $lead->avatar) }}" alt="Student Picture" class="h-10 w-10 rounded-full object-cover" />
+                                            @else
+                                                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
+                                                    <span class="font-medium text-blue-800">
+                                                        {{ substr($lead->first_name, 0, 1) }}{{ substr($lead->last_name, 0, 1) }}
+                                                    </span>
+                                                </div>
+                                            @endif
                                         </div>
                                         <div class="ml-4">
                                             <div class="font-medium text-gray-900">
@@ -178,7 +182,7 @@
                                 <td class="whitespace-nowrap px-6 py-4">
                                     @include('leads.partials.priority-badge', ['priority' => $lead->priority])
                                 </td>
-                                <td class="whitespace-nowrap px-6 py-4">
+                                <!-- <td class="whitespace-nowrap px-6 py-4">
                                     @if($lead->assignedUser)
                                         <div class="flex items-center">
                                             <div class="h-8 w-8 flex-shrink-0">
@@ -226,7 +230,7 @@
                                             }
                                         </style>
                                     @endonce
-                                </td>
+                                </td> -->
                                 
                                 <td class="whitespace-nowrap px-6 py-4">
                                     <div class="flex items-center space-x-2">
