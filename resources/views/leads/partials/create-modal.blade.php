@@ -8,7 +8,8 @@
                 <div class="mt-3 w-full text-center sm:mt-0 sm:text-left">
                     <h3 class="text-lg font-medium leading-6 text-gray-900">Add New Lead</h3>
 
-                    <form method="POST" action="{{ route('leads.store') }}" enctype="multipart/form-data" class="mt-4 space-y-4">
+                    <form method="POST" action="{{ route('leads.store') }}" enctype="multipart/form-data" class="mt-4 space-y-4" id="add-lead-form">
+                        <div id="form-warning" class="hidden mb-4 rounded bg-yellow-100 px-4 py-2 text-yellow-800 text-sm"></div>
                         @csrf
 
                         <div class="grid grid-cols-2 gap-4">
@@ -32,50 +33,50 @@
 
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Age</label>
-                                <input type="number" name="age" value="{{ old('age') }}" min="1" max="100"
+                                <label class="block text-sm font-medium text-gray-700">Age *</label>
+                                <input type="number" name="age" value="{{ old('age') }}" min="1" max="100" required
                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">City</label>
-                                <input type="text" name="city" value="{{ old('city') }}"
-                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Email</label>
-                                <input type="email" name="email" value="{{ old('email') }}"
-                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Phone</label>
-                                <input type="tel" name="phone" value="{{ old('phone') }}"
+                                <label class="block text-sm font-medium text-gray-700">City *</label>
+                                <input type="text" name="city" value="{{ old('city') }}" required
                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                             </div>
                         </div>
 
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Passport</label>
-                                <select name="passport" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                <label class="block text-sm font-medium text-gray-700">Email *</label>
+                                <input type="email" name="email" value="{{ old('email') }}" required
+                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Phone *</label>
+                                <input type="tel" name="phone" value="{{ old('phone') }}" required
+                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Passport *</label>
+                                <select name="passport" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                     <option value="">Select</option>
                                     <option value="yes" {{ old('passport') == 'yes' ? 'selected' : '' }}>Yes</option>
                                     <option value="no" {{ old('passport') == 'no' ? 'selected' : '' }}>No</option>
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Inquiry Date</label>
-                                <input type="date" name="inquiry_date" value="{{ old('inquiry_date', date('Y-m-d')) }}"
+                                <label class="block text-sm font-medium text-gray-700">Inquiry Date *</label>
+                                <input type="date" name="inquiry_date" value="{{ old('inquiry_date', date('Y-m-d')) }}" required
                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                             </div>
                         </div>
 
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Study Level</label>
-                                <select name="study_level" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                <label class="block text-sm font-medium text-gray-700">Study Level *</label>
+                                <select name="study_level" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                     <option value="">Select</option>
                                     <option value="foundation" {{ old('study_level') == 'foundation' ? 'selected' : '' }}>Foundation</option>
                                     <option value="diploma" {{ old('study_level') == 'diploma' ? 'selected' : '' }}>Diploma</option>
@@ -85,8 +86,8 @@
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Priority</label>
-                                <select name="priority" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                <label class="block text-sm font-medium text-gray-700">Priority *</label>
+                                <select name="priority" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                     <option value="">Select</option>
                                     <option value="very_high" {{ old('priority') == 'very_high' ? 'selected' : '' }}>Very High</option>
                                     <option value="high" {{ old('priority') == 'high' ? 'selected' : '' }}>High</option>
@@ -98,8 +99,8 @@
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Preferred Universities</label>
-                            <textarea name="preferred_universities" rows="2"
+                            <label class="block text-sm font-medium text-gray-700">Preferred Universities *</label>
+                            <textarea name="preferred_universities" rows="2" required
                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">{{ old('preferred_universities') }}</textarea>
                         </div>
 
@@ -136,3 +137,62 @@
         </div>
     </div>
 </div>
+<script>
+    function capitalizeFirst(str) {
+        if (!str) return '';
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+    function capitalizeAfterComma(str) {
+        return str.replace(/(^|,\s*)([a-zA-Z])/g, function(match, p1, p2) {
+            return p1 + p2.toUpperCase();
+        });
+    }
+    document.getElementById('add-lead-form').addEventListener('submit', function(e) {
+        var warning = document.getElementById('form-warning');
+        var firstName = document.querySelector('input[name="first_name"]');
+        var lastName = document.querySelector('input[name="last_name"]');
+        var age = document.querySelector('input[name="age"]');
+        var city = document.querySelector('input[name="city"]');
+        var email = document.querySelector('input[name="email"]');
+        var phone = document.querySelector('input[name="phone"]');
+        var preferredUniversities = document.querySelector('textarea[name="preferred_universities"]');
+        var specialNotes = document.querySelector('textarea[name="special_notes"]');
+        var priority = document.querySelector('select[name="priority"]').value;
+        var studyLevel = document.querySelector('select[name="study_level"]').value;
+        var passport = document.querySelector('select[name="passport"]').value;
+        var inquiryDate = document.querySelector('input[name="inquiry_date"]').value;
+        var errors = [];
+
+        // Capitalize first letters
+        firstName.value = capitalizeFirst(firstName.value.trim());
+        lastName.value = capitalizeFirst(lastName.value.trim());
+        city.value = capitalizeFirst(city.value.trim());
+        if (specialNotes.value) specialNotes.value = capitalizeFirst(specialNotes.value.trim());
+        preferredUniversities.value = capitalizeAfterComma(preferredUniversities.value.trim());
+
+        // Validate first name and last name (no numbers)
+        if (/\d/.test(firstName.value)) errors.push('First Name cannot contain numbers.');
+        if (/\d/.test(lastName.value)) errors.push('Last Name cannot contain numbers.');
+        // Validate age
+        if (!/^\d+$/.test(age.value) || parseInt(age.value) > 100 || parseInt(age.value) < 1) errors.push('Age must be a number between 1 and 100.');
+        // Validate city (no numbers)
+        if (/\d/.test(city.value)) errors.push('City cannot contain numbers.');
+        // Validate email
+        if (!email.value.includes('@') || !email.checkValidity()) errors.push('Please enter a valid email address.');
+        // Validate phone (only numbers)
+        if (!/^\d+$/.test(phone.value)) errors.push('Phone number can only contain numbers.');
+        // Validate preferred universities (no numbers)
+        if (/\d/.test(preferredUniversities.value)) errors.push('Preferred Universities cannot contain numbers.');
+        // Required selects
+        if (!priority || !studyLevel || !passport || !inquiryDate) errors.push('Please fill all required fields.');
+
+        if (errors.length > 0) {
+            e.preventDefault();
+            warning.textContent = errors.join(' ');
+            warning.classList.remove('hidden');
+            window.scrollTo({ top: warning.offsetTop - 100, behavior: 'smooth' });
+        } else {
+            warning.classList.add('hidden');
+        }
+    });
+</script>
