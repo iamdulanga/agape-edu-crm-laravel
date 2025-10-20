@@ -94,11 +94,15 @@
                                 <td class="whitespace-nowrap px-6 py-4">
                                     <div class="flex items-center">
                                         <div class="h-10 w-10 flex-shrink-0">
-                                            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
-                                                <span class="font-medium text-blue-800">
-                                                    {{ substr($user->name, 0, 2) }}
-                                                </span>
-                                            </div>
+                                            @if($user->avatar)
+                                                <img src="{{ asset('storage/' . $user->avatar) }}" alt="{{ $user->name }}" class="h-10 w-10 rounded-full object-cover border-2 border-gray-200">
+                                            @else
+                                                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
+                                                    <span class="font-medium text-blue-800">
+                                                        {{ strtoupper(substr($user->name, 0, 1)) }}
+                                                    </span>
+                                                </div>
+                                            @endif
                                         </div>
                                         <div class="ml-4">
                                             <div class="font-medium text-gray-900">{{ $user->name }}</div>
