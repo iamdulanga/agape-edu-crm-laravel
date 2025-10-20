@@ -41,7 +41,7 @@
                         <p class="text-red-600">No valid role assigned. Contact administrator.</p>
                     @endif
 
-                    <div class="mt-6">
+                    <!-- <div class="mt-6">
                         <a href="{{ route('leads.index') }}" class="inline-block rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">
                             Manage Leads
                         </a>
@@ -50,7 +50,7 @@
                                 Manage Users
                             </a>
                         @endif
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
