@@ -322,6 +322,12 @@
 
 @push('scripts')
 <script>
+    function toggleModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.toggle('hidden');
+        }
+    }
     // Select all functionality
     document.getElementById('select-all').addEventListener('change', function() {
         const checkboxes = document.querySelectorAll('.lead-checkbox');
@@ -329,7 +335,6 @@
             checkbox.checked = this.checked;
         });
     });
-
     // Bulk actions form handling
     document.getElementById('bulk-assign-form').addEventListener('submit', function(e) {
         const selectedLeads = document.querySelectorAll('.lead-checkbox:checked');
@@ -338,7 +343,6 @@
             alert('Please select at least one lead.');
         }
     });
-
     document.getElementById('bulk-status-form').addEventListener('submit', function(e) {
         const selectedLeads = document.querySelectorAll('.lead-checkbox:checked');
         if (selectedLeads.length === 0) {
