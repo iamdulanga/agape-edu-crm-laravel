@@ -8,7 +8,7 @@
 @endphp
 
 @section('header')
-    <h2 class="text-xl font-semibold leading-tight text-gray-800">
+    <h2 class="text-xl font-semibold leading-tight text-gray-800 ml-10">
         @if(in_array('owner', $userRoles))
             Owner Dashboard
         @elseif(in_array('manager', $userRoles))

@@ -1,4 +1,4 @@
-<div id="sidebar" class="w-64 flex flex-col h-full bg-gradient-to-b from-gray-800 to-gray-900 text-white shadow-xl">
+<div id="sidebar" class="w-64 flex flex-col h-full bg-gradient-to-b from-gray-800 to-gray-900 text-white shadow-xl fixed inset-y-0 left-0 z-50 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out md:relative md:transform-none">
     <!-- Header - Image eke wage -->
     <div class="p-6 border-b border-gray-700">
         <div class="flex items-center space-x-3">
@@ -120,3 +120,25 @@
         </form>
     </div>
 </div>
+<button id="sidebar-toggle" class="md:hidden fixed top-2 left-4 z-50 p-2  rounded-lg  focus:outline-none">
+    <svg id="open-icon" class="w-6 h-6 text-black rounded-lg " fill="none" stroke="currentColor" viewBox="0 0 24 24 ">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+    </svg>
+    <svg id="close-icon" class="w-6 h-6 hidden text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-left:800%; ">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+    </svg>
+</button>
+
+<!-- JavaScript for Toggle -->
+<script>
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('sidebar-toggle');
+    const openIcon = document.getElementById('open-icon');
+    const closeIcon = document.getElementById('close-icon');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('-translate-x-full');
+        openIcon.classList.toggle('hidden');
+        closeIcon.classList.toggle('hidden');
+    });
+</script>
