@@ -1,134 +1,159 @@
 <div id="add-lead-modal" class="fixed inset-0 z-50 hidden overflow-y-auto">
     <div class="flex min-h-screen items-end justify-center px-4 pb-20 pt-4 text-center sm:block sm:p-0">
-        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" 
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
              onclick="toggleModal('add-lead-modal')"></div>
 
-        <div class="relative inline-block transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl sm:p-6 sm:align-middle">
+        <div class="relative inline-block transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-4xl sm:p-6 sm:align-middle">
             <div class="sm:flex sm:items-start">
                 <div class="mt-3 w-full text-center sm:mt-0 sm:text-left">
-                    <h3 class="text-lg font-medium leading-6 text-gray-900">Add New Lead</h3>
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-semibold leading-6 text-gray-900">Add New Lead</h3>
+                        <button type="button" onclick="toggleModal('add-lead-modal')" class="text-gray-400 hover:text-gray-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
 
-                    <form method="POST" action="{{ route('leads.store') }}" enctype="multipart/form-data" class="mt-4 space-y-4" id="add-lead-form">
-                        <div id="form-warning" class="hidden mb-4 rounded bg-yellow-100 px-4 py-2 text-yellow-800 text-sm"></div>
+                    <form method="POST" action="{{ route('leads.store') }}" enctype="multipart/form-data" class="space-y-6" id="add-lead-form">
+                        <div id="form-warning" class="hidden mb-4 rounded-md bg-yellow-50 border border-yellow-200 px-4 py-3 text-yellow-800 text-sm"></div>
                         @csrf
 
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">First Name *</label>
-                                <input type="text" name="first_name" value="{{ old('first_name') }}" required
-                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                @error('first_name')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                @enderror
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Last Name *</label>
-                                <input type="text" name="last_name" value="{{ old('last_name') }}" required
-                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                @error('last_name')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Age *</label>
-                                <input type="number" name="age" value="{{ old('age') }}" min="1" max="100" required
-                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">City *</label>
-                                <input type="text" name="city" value="{{ old('city') }}" required
-                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Email *</label>
-                                <input type="email" name="email" value="{{ old('email') }}" required
-                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Phone *</label>
-                                <input type="tel" name="phone" value="{{ old('phone') }}" required
-                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        <!-- Personal Information Section -->
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h4 class="text-md font-medium text-gray-900 mb-4">Personal Information</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
+                                    <input type="text" name="first_name" value="{{ old('first_name') }}" required
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                    @error('first_name')
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Last Name *</label>
+                                    <input type="text" name="last_name" value="{{ old('last_name') }}" required
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                    @error('last_name')
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Age *</label>
+                                    <input type="number" name="age" value="{{ old('age') }}" min="1" max="100" required
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">City *</label>
+                                    <input type="text" name="city" value="{{ old('city') }}" required
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                </div>
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Passport *</label>
-                                <select name="passport" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                    <option value="">Select</option>
-                                    <option value="yes" {{ old('passport') == 'yes' ? 'selected' : '' }}>Yes</option>
-                                    <option value="no" {{ old('passport') == 'no' ? 'selected' : '' }}>No</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Inquiry Date *</label>
-                                <input type="date" name="inquiry_date" value="{{ old('inquiry_date', date('Y-m-d')) }}" required
-                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Study Level *</label>
-                                <select name="study_level" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                    <option value="">Select</option>
-                                    <option value="foundation" {{ old('study_level') == 'foundation' ? 'selected' : '' }}>Foundation</option>
-                                    <option value="diploma" {{ old('study_level') == 'diploma' ? 'selected' : '' }}>Diploma</option>
-                                    <option value="bachelor" {{ old('study_level') == 'bachelor' ? 'selected' : '' }}>Bachelor</option>
-                                    <option value="master" {{ old('study_level') == 'master' ? 'selected' : '' }}>Master</option>
-                                    <option value="phd" {{ old('study_level') == 'phd' ? 'selected' : '' }}>PhD</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Priority *</label>
-                                <select name="priority" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                    <option value="">Select</option>
-                                    <option value="very_high" {{ old('priority') == 'very_high' ? 'selected' : '' }}>Very High</option>
-                                    <option value="high" {{ old('priority') == 'high' ? 'selected' : '' }}>High</option>
-                                    <option value="medium" {{ old('priority') == 'medium' ? 'selected' : '' }}>Medium</option>
-                                    <option value="low" {{ old('priority') == 'low' ? 'selected' : '' }}>Low</option>
-                                    <option value="very_low" {{ old('priority') == 'very_low' ? 'selected' : '' }}>Very Low</option>
-                                </select>
+                        <!-- Contact Information Section -->
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h4 class="text-md font-medium text-gray-900 mb-4">Contact Information</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+                                    <input type="email" name="email" value="{{ old('email') }}" required
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Phone *</label>
+                                    <input type="tel" name="phone" value="{{ old('phone') }}" required
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                </div>
                             </div>
                         </div>
 
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Preferred Universities *</label>
-                            <textarea name="preferred_universities" rows="2" required
-                                      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">{{ old('preferred_universities') }}</textarea>
+                        <!-- Academic Information Section -->
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h4 class="text-md font-medium text-gray-900 mb-4">Academic Information</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Study Level *</label>
+                                    <select name="study_level" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                        <option value="">Select Study Level</option>
+                                        <option value="foundation" {{ old('study_level') == 'foundation' ? 'selected' : '' }}>Foundation</option>
+                                        <option value="diploma" {{ old('study_level') == 'diploma' ? 'selected' : '' }}>Diploma</option>
+                                        <option value="bachelor" {{ old('study_level') == 'bachelor' ? 'selected' : '' }}>Bachelor</option>
+                                        <option value="master" {{ old('study_level') == 'master' ? 'selected' : '' }}>Master</option>
+                                        <option value="phd" {{ old('study_level') == 'phd' ? 'selected' : '' }}>PhD</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Passport *</label>
+                                    <select name="passport" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                        <option value="">Select Passport Status</option>
+                                        <option value="yes" {{ old('passport') == 'yes' ? 'selected' : '' }}>Yes</option>
+                                        <option value="no" {{ old('passport') == 'no' ? 'selected' : '' }}>No</option>
+                                    </select>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Preferred Universities *</label>
+                                    <textarea name="preferred_universities" rows="3" required placeholder="Enter preferred universities separated by commas"
+                                              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">{{ old('preferred_universities') }}</textarea>
+                                </div>
+                            </div>
                         </div>
 
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Special Notes</label>
-                            <textarea name="special_notes" rows="3"
-                                      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">{{ old('special_notes') }}</textarea>
+                        <!-- Additional Information Section -->
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h4 class="text-md font-medium text-gray-900 mb-4">Additional Information</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Priority *</label>
+                                    <select name="priority" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                        <option value="">Select Priority</option>
+                                        <option value="very_high" {{ old('priority') == 'very_high' ? 'selected' : '' }}>🔴 Very High</option>
+                                        <option value="high" {{ old('priority') == 'high' ? 'selected' : '' }}>🟠 High</option>
+                                        <option value="medium" {{ old('priority') == 'medium' ? 'selected' : '' }}>🟡 Medium</option>
+                                        <option value="low" {{ old('priority') == 'low' ? 'selected' : '' }}>🟢 Low</option>
+                                        <option value="very_low" {{ old('priority') == 'very_low' ? 'selected' : '' }}>🔵 Very Low</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Inquiry Date *</label>
+                                    <input type="date" name="inquiry_date" value="{{ old('inquiry_date', date('Y-m-d')) }}" required
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Special Notes</label>
+                                    <textarea name="special_notes" rows="3" placeholder="Any additional notes or comments about the student"
+                                              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">{{ old('special_notes') }}</textarea>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label for="avatar" class="block text-sm font-medium text-gray-700 mb-1">Student Picture (optional)</label>
+                                    <div class="flex items-center space-x-4">
+                                        <input type="file" name="avatar" id="avatar" accept="image/*"
+                                               class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors">
+                                    </div>
+                                    <p class="mt-1 text-xs text-gray-500">JPG, PNG or GIF (MAX. 2MB)</p>
+                                    @error('avatar')
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
 
-                        <div>
-                            <label for="avatar" class="block text-sm font-medium text-gray-700">Student Picture (optional)</label>
-                            <input type="file" name="avatar" id="avatar" accept="image/*"
-                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm px-4 py-2 border">
-                            <span class="text-xs text-gray-500">JPG, PNG or GIF (MAX. 2MB)</span>
-                            @error('avatar')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
-                            <button type="submit"
-                                    class="inline-flex w-full justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm">
-                                Create Lead
-                            </button>
-                            <button type="button" 
+                        <!-- Form Actions -->
+                        <div class="flex flex-col sm:flex-row sm:justify-end space-y-2 sm:space-y-0 sm:space-x-3 pt-4 border-t border-gray-200">
+                            <button type="button"
                                     onclick="toggleModal('add-lead-modal')"
-                                    class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm">
+                                    class="w-full sm:w-auto px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
                                 Cancel
+                            </button>
+                            <button type="submit"
+                                    class="w-full sm:w-auto px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                                <span class="flex items-center justify-center">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                    </svg>
+                                    Create Lead
+                                </span>
                             </button>
                         </div>
                     </form>
