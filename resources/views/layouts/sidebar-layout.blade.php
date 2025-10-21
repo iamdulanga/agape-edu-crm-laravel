@@ -17,7 +17,7 @@
     <div class="flex h-full w-full">
 
         <!-- Sidebar (Fixed Width) -->
-        <aside class="w-64 bg-gradient-to-b from-gray-800 to-gray-900 text-white flex flex-col">
+        <aside >
             @include('layouts.sidebar')
         </aside>
 
