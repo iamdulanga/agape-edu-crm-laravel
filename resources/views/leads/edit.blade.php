@@ -144,7 +144,7 @@
                     <div>
                         <label for="assigned_to" class="block text-sm font-medium text-gray-700">Assigned To</label>
                         <select name="assigned_to" id="assigned_to"
-                                class="mt-1 block w-full rounded-md border {{ $errors->has('assigned_to') ? 'border-red-300' : 'border_gray-200' }} bg-white px-3 py-2 focus:border-blue-500  focus:ring-blue-500 sm:text-sm">
+                                class="mt-1 block w-full rounded-md border {{ $errors->has('assigned_to') ? 'border-red-300' : 'border-gray-200' }} bg-white px-3 py-2 focus:border-blue-500  focus:ring-blue-500 sm:text-sm">
                             <option value="">Unassigned</option>
                             @php
                                 $assignableUsers = \App\Models\User::whereHas('roles', function($query) {
