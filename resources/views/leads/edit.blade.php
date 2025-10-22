@@ -61,7 +61,7 @@
                         <input type="tel" name="phone" id="phone" value="{{ old('phone', $lead->phone) }}"
                                class="mt-1 block w-full rounded-md border {{ $errors->has('phone') ? 'border-red-300' : 'border-gray-200' }} bg-white px-3 py-2 placeholder-gray-400 focus:border-blue-500  focus:ring-blue-500 sm:text-sm">
                         @error('phone') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
-                    </div
+                    </div>
 
                     <!-- Demographics -->
                     <div>
@@ -130,7 +130,7 @@
                     <div>
                         <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
                         <select name="status" id="status"
-                                class="mt-1 block w-full rounded-md border {{ $errors->has('status') ? 'border-red-300' : 'border-gray-200' }} bg-white px-3 py-2 focus:border-black-500  focus:ring-black-500 sm:text-sm">
+                                class="mt-1 block w-full rounded-md border {{ $errors->has('status') ? 'border-red-300' : 'border-gray-200' }} bg-white px-3 py-2 focus:border-blue-500  focus:ring-blue-500 sm:text-sm">
                             <option value="">Select</option>
                             <option value="new" {{ old('status', $lead->status) == 'new' ? 'selected' : '' }}>New</option>
                             <option value="contacted" {{ old('status', $lead->status) == 'contacted' ? 'selected' : '' }}>Contacted</option>
@@ -144,7 +144,7 @@
                     <div>
                         <label for="assigned_to" class="block text-sm font-medium text-gray-700">Assigned To</label>
                         <select name="assigned_to" id="assigned_to"
-                                class="mt-1 block w-full rounded-md border {{ $errors->has('assigned_to') ? 'border-red-300' : 'border_gray-200' }} bg-white px-3 py-2 focus:border-blue-500  focus:ring-blue-500 sm:text-sm">
+                                class="mt-1 block w-full rounded-md border {{ $errors->has('assigned_to') ? 'border-red-300' : 'border-gray-200' }} bg-white px-3 py-2 focus:border-blue-500  focus:ring-blue-500 sm:text-sm">
                             <option value="">Unassigned</option>
                             @php
                                 $assignableUsers = \App\Models\User::whereHas('roles', function($query) {
