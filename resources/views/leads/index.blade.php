@@ -223,54 +223,54 @@
                                         ])
                                     </td>
                                     <!-- <td class="whitespace-nowrap px-6 py-4">
-                                        @if ($lead->assignedUser)
+                                            @if ($lead->assignedUser)
     <div class="flex items-center">
-                                                <div class="h-8 w-8 flex-shrink-0">
-                                                    <div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-100">
-                                                        <span class="text-xs font-medium text-green-800">
-                                                            {{ substr($lead->assignedUser->name, 0, 1) }}
-                                                        </span>
+                                                    <div class="h-8 w-8 flex-shrink-0">
+                                                        <div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-100">
+                                                            <span class="text-xs font-medium text-green-800">
+                                                                {{ substr($lead->assignedUser->name, 0, 1) }}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ml-3">
+                                                        <div class="text-sm font-medium text-gray-900">{{ $lead->assignedUser->name }}</div>
                                                     </div>
                                                 </div>
-                                                <div class="ml-3">
-                                                    <div class="text-sm font-medium text-gray-900">{{ $lead->assignedUser->name }}</div>
-                                                </div>
-                                            </div>
-                                            @if (auth()->user()->hasRole('manager') || auth()->user()->hasRole('owner'))
+                                                @if (auth()->user()->hasRole('manager') || auth()->user()->hasRole('owner'))
     <button onclick="toggleModal('unassign-modal-{{ $lead->id }}')"
-                                                        class="mt-1 text-xs text-red-600 hover:text-red-900">
-                                                    Unassign
-                                                </button>
+                                                            class="mt-1 text-xs text-red-600 hover:text-red-900">
+                                                        Unassign
+                                                    </button>
     @endif
 @else
     <div class="flex items-center text-gray-500">
-                                                <svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                                                </svg>
-                                                <span class="text-sm">Unassigned</span>
-                                            </div>
-                                            @if (auth()->user()->hasRole('manager') || auth()->user()->hasRole('owner'))
+                                                    <svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                                    </svg>
+                                                    <span class="text-sm">Unassigned</span>
+                                                </div>
+                                                @if (auth()->user()->hasRole('manager') || auth()->user()->hasRole('owner'))
     <button onclick="toggleModal('assign-modal-{{ $lead->id }}')"
-                                                        class="mt-1 text-xs text-blue-600 hover:text-blue-900">
-                                                    Assign
-                                                </button>
+                                                            class="mt-1 text-xs text-blue-600 hover:text-blue-900">
+                                                        Assign
+                                                    </button>
     @endif
     @endif
-                                        @once
-                                                <style>
-                                                    /* Make the table fit its container to avoid horizontal scrolling */
-                                                    .overflow-x-auto table { width: 100% !important; min-width: 0 !important; table-layout: auto; }
-                                                    /* Reduce vertical spacing in table rows/cells */
-                                                    .overflow-x-auto table th,
-                                                    .overflow-x-auto table td {
-                                                        padding-top: 0.5rem;
-                                                        padding-bottom: 0.5rem;
-                                                        padding-left: 0.75rem;
-                                                        padding-right: 0.75rem;
-                                                    }
-                                                </style>
-                                        @endonce
-                                    </td> -->
+                                            @once
+                                                        <style>
+                                                            /* Make the table fit its container to avoid horizontal scrolling */
+                                                            .overflow-x-auto table { width: 100% !important; min-width: 0 !important; table-layout: auto; }
+                                                            /* Reduce vertical spacing in table rows/cells */
+                                                            .overflow-x-auto table th,
+                                                            .overflow-x-auto table td {
+                                                                padding-top: 0.5rem;
+                                                                padding-bottom: 0.5rem;
+                                                                padding-left: 0.75rem;
+                                                                padding-right: 0.75rem;
+                                                            }
+                                                        </style>
+                                            @endonce
+                                        </td> -->
 
                                     <td class="whitespace-nowrap px-2 py-4">
                                         <div x-data="{ open: false }" class="relative">
@@ -352,8 +352,8 @@
                                                                     xmlns="http://www.w3.org/2000/svg">
                                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                                         stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5
-                                           4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1
-                                           1 0 00-1 1v3M4 7h16"></path>
+                                               4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1
+                                               1 0 00-1 1v3M4 7h16"></path>
                                                                 </svg>
                                                                 Delete
                                                             </button>

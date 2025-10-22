@@ -24,6 +24,7 @@
                     {{ $lead->status === 'active' ? 'bg-green-400' : 'bg-gray-400' }}">
                     </span>
                 </div>
+                
 
                 <div>
                     <h1 class="text-3xl font-bold text-white tracking-wide">
