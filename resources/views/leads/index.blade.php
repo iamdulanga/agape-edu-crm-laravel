@@ -504,4 +504,4 @@
         });
     </script>
 @endpush
-<script src="//unpkg.com/alpinejs" defer></script>
+<script src="https://unpkg.com/alpinejs@3.13.10/dist/cdn.min.js" defer></script>
