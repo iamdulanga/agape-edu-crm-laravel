@@ -43,7 +43,7 @@
                     class="inline-flex items-center px-4 py-2 bg-white text-blue-700 text-sm font-semibold rounded-md shadow hover:bg-gray-100 transition">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M11 5h2m-1 0v14m-7 4h14a2 2 0 002-2V7l-6-6H6a2 2 0 00-2 2v16a2 2 0 002 2z" />
+                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                     </svg>
                     Edit
                 </a>
