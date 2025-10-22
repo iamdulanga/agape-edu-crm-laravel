@@ -61,7 +61,7 @@
                         <input type="tel" name="phone" id="phone" value="{{ old('phone', $lead->phone) }}"
                                class="mt-1 block w-full rounded-md border {{ $errors->has('phone') ? 'border-red-300' : 'border-gray-200' }} bg-white px-3 py-2 placeholder-gray-400 focus:border-blue-500  focus:ring-blue-500 sm:text-sm">
                         @error('phone') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
-                    </div
+                    </div>
 
                     <!-- Demographics -->
                     <div>
