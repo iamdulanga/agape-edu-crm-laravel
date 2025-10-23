@@ -3,16 +3,16 @@
 @section('title', 'Leads Management')
 
 @section('header')
-    <div class="flex items-center justify-between">
-        <div>
-            <h1 class="text-2xl font-bold text-gray-900 ml-10 top-0 ">Leads Management</h1>
-            <p class="mt-1 text-sm text-gray-500 ml-10">Manage and track your leads efficiently</p>
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
+        <div class="flex flex-col items-start">
+            <h1 class="text-2xl font-bold text-gray-900 ml-0 sm:ml-10">Leads Management</h1>
+            <p class="mt-1 text-sm text-gray-500 ml-0 sm:ml-10">Manage and track your leads efficiently</p>
         </div>
-        <div class="flex items-center space-x-2">
+        <div class="flex items-center space-x-2 mt-2 sm:mt-0">
             <!-- Create Account Button (Only for Owners and Managers) -->
             @if (auth()->user()->hasRole('owner') || auth()->user()->hasRole('manager'))
                 <button onclick="toggleModal('create-account-modal')"
-                    class="inline-flex items-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    class="inline-flex items-center rounded-lg border border-blue-500 bg-white px-4 py-2 text-sm font-medium text-blue-500 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                     <svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -23,10 +23,10 @@
             @endif
 
             <!-- Export Button -->
-            <form action="{{ route('leads.export') }}" method="POST" class="inline-flex">
+            <form action="{{ route('leads.export') }}" method="POST" class="inline">
                 @csrf
                 <button type="submit"
-                    class="inline-flex items-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    class="inline-flex items-center rounded-lg border border-blue-500 bg-white px-4 py-2 text-sm font-medium text-blue-500 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mt-4">
                     <svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -39,7 +39,7 @@
 
             <!-- Add Lead Button -->
             <button onclick="toggleModal('add-lead-modal')"
-                class="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                class="inline-flex items-center rounded-lg border border-blue-500 bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                 <svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6">
@@ -125,37 +125,37 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th scope="col" class="w-12 px-2 py-3 text-left">
+                                <th scope="col" class="w-12 px-2 py-3 text-left align-middle">
                                     <input type="checkbox" id="select-all"
                                         class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
                                 </th>
                                 <th scope="col"
-                                    class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                    class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 align-middle">
                                     Student</th>
                                 <th scope="col"
-                                    class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                    class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 align-middle">
                                     Age</th>
                                 <th scope="col"
-                                    class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                    class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 align-middle">
                                     Location</th>
                                 <th scope="col"
-                                    class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                    class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 align-middle">
                                     Contact</th>
                                 <th scope="col"
-                                    class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                    class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 align-middle">
                                     Status</th>
                                 <th scope="col"
-                                    class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                    class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 align-middle">
                                     Priority</th>
                                 <th scope="col"
-                                    class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                    class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 align-middle">
                                     Actions</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200 bg-white">
                             @forelse($leads as $lead)
                                 <tr class="transition-colors hover:bg-gray-50" data-lead-id="{{ $lead->id }}">
-                                    <td class="whitespace-nowrap px-2 py-4">
+                                    <td class="whitespace-nowrap px-2 py-4 align-middle">
                                         <input type="checkbox" name="lead_ids[]" value="{{ $lead->id }}"
                                             class="lead-checkbox h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
                                     </td>
