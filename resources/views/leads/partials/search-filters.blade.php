@@ -51,11 +51,11 @@
 
         <!-- Actions -->
         <div class="flex items-end space-x-2">
-            <button type="submit" class="inline-flex items-center bg-gradient-to-r from-blue-600 to-blue-500 text-white px-5 py-2 rounded-lg shadow hover:from-blue-700 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 font-semibold transition">
+            <button type="submit" class="inline-flex items-center bg-blue-600 text-white px-5 py-2 rounded-lg shadow hover:from-blue-700 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 font-semibold transition">
                 <svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"/></svg>
                 Search
             </button>
-            <a href="{{ route('leads.index') }}" class="inline-flex items-center bg-gradient-to-r from-gray-400 to-gray-500 text-white px-5 py-2 rounded-lg shadow hover:from-gray-500 hover:to-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 font-semibold transition">
+            <a href="{{ route('leads.index') }}" class="inline-flex items-center bg-gray-800 text-white px-5 py-2 rounded-lg shadow hover:from-gray-500 hover:to-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 font-semibold transition">
                 <svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                 Clear
             </a>
