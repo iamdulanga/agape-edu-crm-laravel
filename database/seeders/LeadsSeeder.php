@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Lead;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class LeadsSeeder extends Seeder
@@ -24,7 +23,7 @@ class LeadsSeeder extends Seeder
                 'passport' => 'yes',
                 'inquiry_date' => now()->subDays(5),
                 'preferred_universities' => 'Harvard University, Stanford University',
-                'special_notes' => 'Looking for MBA programs'
+                'special_notes' => 'Looking for MBA programs',
             ],
             [
                 'first_name' => 'Rosalyn',
@@ -39,7 +38,7 @@ class LeadsSeeder extends Seeder
                 'passport' => 'no',
                 'inquiry_date' => now()->subDays(1),
                 'preferred_universities' => 'University of California, MIT',
-                'special_notes' => 'Needs scholarship information'
+                'special_notes' => 'Needs scholarship information',
             ],
             [
                 'first_name' => 'Lia',
@@ -54,7 +53,7 @@ class LeadsSeeder extends Seeder
                 'passport' => 'yes',
                 'inquiry_date' => now()->subDays(7),
                 'preferred_universities' => 'Cambridge University, Oxford University',
-                'special_notes' => 'Research focused, needs supervisor contact'
+                'special_notes' => 'Research focused, needs supervisor contact',
             ],
             [
                 'first_name' => 'Osvaldo',
@@ -69,7 +68,7 @@ class LeadsSeeder extends Seeder
                 'passport' => 'yes',
                 'inquiry_date' => now()->subDays(10),
                 'preferred_universities' => 'University of Toronto, McGill University',
-                'special_notes' => 'Ready to apply, needs application assistance'
+                'special_notes' => 'Ready to apply, needs application assistance',
             ],
             [
                 'first_name' => 'Jeremy',
@@ -84,7 +83,7 @@ class LeadsSeeder extends Seeder
                 'passport' => 'no',
                 'inquiry_date' => now()->subDays(3),
                 'preferred_universities' => 'Monash University, University of Sydney',
-                'special_notes' => 'Urgent - needs passport application help'
+                'special_notes' => 'Urgent - needs passport application help',
             ],
             [
                 'first_name' => 'Marcelle',
@@ -99,7 +98,7 @@ class LeadsSeeder extends Seeder
                 'passport' => 'yes',
                 'inquiry_date' => now()->subDays(30),
                 'preferred_universities' => 'University of Melbourne, Australian National University',
-                'special_notes' => 'Successfully enrolled in Master of Data Science'
+                'special_notes' => 'Successfully enrolled in Master of Data Science',
             ],
             [
                 'first_name' => 'Wilma',
@@ -114,7 +113,7 @@ class LeadsSeeder extends Seeder
                 'passport' => 'yes',
                 'inquiry_date' => now()->subDays(15),
                 'preferred_universities' => 'University of British Columbia, University of Alberta',
-                'special_notes' => 'Did not meet entry requirements'
+                'special_notes' => 'Did not meet entry requirements',
             ],
             [
                 'first_name' => 'Gay',
@@ -129,7 +128,7 @@ class LeadsSeeder extends Seeder
                 'passport' => 'yes',
                 'inquiry_date' => now()->subDays(20),
                 'preferred_universities' => 'ETH Zurich, University of Zurich',
-                'special_notes' => 'Funding not secured'
+                'special_notes' => 'Funding not secured',
             ],
             [
                 'first_name' => 'Mariana',
@@ -144,7 +143,7 @@ class LeadsSeeder extends Seeder
                 'passport' => 'yes',
                 'inquiry_date' => now()->subDays(8),
                 'preferred_universities' => 'National University of Singapore, Nanyang Technological University',
-                'special_notes' => 'Waiting for offer letter'
+                'special_notes' => 'Waiting for offer letter',
             ],
             [
                 'first_name' => 'Shaina',
@@ -159,8 +158,8 @@ class LeadsSeeder extends Seeder
                 'passport' => 'yes',
                 'inquiry_date' => now()->subDays(12),
                 'preferred_universities' => 'University of Hong Kong, Chinese University of Hong Kong',
-                'special_notes' => 'Interview scheduled next week'
-            ]
+                'special_notes' => 'Interview scheduled next week',
+            ],
         ];
 
         foreach ($leads as $leadData) {

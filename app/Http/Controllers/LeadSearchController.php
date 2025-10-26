@@ -14,12 +14,12 @@ class LeadSearchController extends Controller
         // Search term
         if ($request->filled('search')) {
             $searchTerm = $request->search;
-            $query->where(function($q) use ($searchTerm) {
+            $query->where(function ($q) use ($searchTerm) {
                 $q->where('first_name', 'like', "%{$searchTerm}%")
-                  ->orWhere('last_name', 'like', "%{$searchTerm}%")
-                  ->orWhere('email', 'like', "%{$searchTerm}%")
-                  ->orWhere('phone', 'like', "%{$searchTerm}%")
-                  ->orWhere('city', 'like', "%{$searchTerm}%");
+                    ->orWhere('last_name', 'like', "%{$searchTerm}%")
+                    ->orWhere('email', 'like', "%{$searchTerm}%")
+                    ->orWhere('phone', 'like', "%{$searchTerm}%")
+                    ->orWhere('city', 'like', "%{$searchTerm}%");
             });
         }
 
@@ -47,18 +47,9 @@ class LeadSearchController extends Controller
             $query->whereDate('inquiry_date', '<=', $request->date_to);
         }
 
-        // Assigned filter
-        if ($request->filled('assigned') && $request->assigned !== 'all') {
-            if ($request->assigned === 'assigned') {
-                $query->whereNotNull('assigned_to');
-            } elseif ($request->assigned === 'unassigned') {
-                $query->whereNull('assigned_to');
-            } elseif ($request->assigned === 'me') {
-                $query->where('assigned_to', auth()->id());
-            }
-        }
+        // Note: Assignment filter has been removed as the assigned_to column is obsolete
 
-        $leads = $query->with('assignedUser')->latest()->get();
+        $leads = $query->latest()->get();
 
         return view('leads.index', compact('leads'));
     }

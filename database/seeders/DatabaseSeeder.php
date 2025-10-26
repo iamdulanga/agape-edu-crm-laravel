@@ -29,21 +29,21 @@ class DatabaseSeeder extends Seeder
                 'username' => 'owner',
                 'email' => 'owner@agape.edu',
                 'password' => Hash::make('password'),
-                'roles' => ['owner']
+                'roles' => ['owner'],
             ],
             [
                 'name' => 'Team Manager',
                 'username' => 'manager',
                 'email' => 'manager@agape.edu',
                 'password' => Hash::make('password'),
-                'roles' => ['manager']
+                'roles' => ['manager'],
             ],
             [
                 'name' => 'Education Counselor',
                 'username' => 'counselor',
                 'email' => 'counselor@agape.edu',
                 'password' => Hash::make('password'),
-                'roles' => ['counselor']
+                'roles' => ['counselor'],
             ],
         ];
 

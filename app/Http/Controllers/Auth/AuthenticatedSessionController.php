@@ -23,27 +23,27 @@ class AuthenticatedSessionController extends Controller
 
         // Try to authenticate with username
         if (Auth::attempt([
-            'username' => $request->username, 
-            'password' => $request->password
+            'username' => $request->username,
+            'password' => $request->password,
         ], $request->boolean('remember'))) {
             $request->session()->regenerate();
-            
+
             // Update last login timestamp
             Auth::user()->update(['last_login_at' => now()]);
-            
+
             return redirect()->intended(route('dashboard'));
         }
 
         // If username fails, try with email
         if (Auth::attempt([
             'email' => $request->username,
-            'password' => $request->password
+            'password' => $request->password,
         ], $request->boolean('remember'))) {
             $request->session()->regenerate();
-            
+
             // Update last login timestamp
             Auth::user()->update(['last_login_at' => now()]);
-            
+
             return redirect()->intended(route('dashboard'));
         }
 

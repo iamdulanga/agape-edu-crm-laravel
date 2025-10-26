@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lead;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -38,25 +36,23 @@ class DashboardController extends Controller
 
     private function getManagerStats($user)
     {
-        // For manager, get team leads (all leads assigned to their team)
-        // This is a simplified version - you might want to adjust based on your team structure
+        // Note: Team assignment tracking has been removed with the assigned_to column
+        // Manager stats now show overall system metrics
         return [
-            'teamLeads' => Lead::count(), // All leads in system for simplicity
-            'assignedLeads' => Lead::where('assigned_to', $user->id)->count(),
+            'teamLeads' => Lead::count(), // All leads in system
+            'assignedLeads' => 0, // Assignment feature removed
             'teamPerformance' => $this->calculateTeamPerformance(),
         ];
     }
 
     private function getCounselorStats($user)
     {
+        // Note: Personal assignment tracking has been removed with the assigned_to column
+        // Counselor stats now show overall system metrics
         return [
-            'myLeads' => Lead::where('assigned_to', $user->id)->count(),
-            'newAssignments' => Lead::where('assigned_to', $user->id)
-                                ->where('created_at', '>=', now()->subDays(7))
-                                ->count(),
-            'followUpsToday' => Lead::where('assigned_to', $user->id)
-                                ->where('status', 'contacted')
-                                ->count(), // Simplified follow-up logic
+            'myLeads' => Lead::count(), // Show all leads
+            'newAssignments' => Lead::where('created_at', '>=', now()->subDays(7))->count(),
+            'followUpsToday' => Lead::where('status', 'contacted')->count(), // All contacted leads
         ];
     }
 
@@ -64,7 +60,7 @@ class DashboardController extends Controller
     {
         $totalLeads = Lead::count();
         $convertedLeads = Lead::where('status', 'converted')->count();
-        
+
         return $totalLeads > 0 ? round(($convertedLeads / $totalLeads) * 100, 1) : 0;
     }
 
@@ -73,7 +69,7 @@ class DashboardController extends Controller
         // Simplified team performance calculation
         $totalLeads = Lead::count();
         $qualifiedLeads = Lead::whereIn('status', ['qualified', 'converted'])->count();
-        
+
         return $totalLeads > 0 ? round(($qualifiedLeads / $totalLeads) * 100, 1) : 0;
     }
 }

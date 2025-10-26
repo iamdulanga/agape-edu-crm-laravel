@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Lead;
 use App\Models\Activity;
+use App\Models\Lead;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -11,12 +11,11 @@ class LeadController extends Controller
 {
     public function index()
     {
-        $leads = Lead::with('assignedUser')
-            ->latest()
+        $leads = Lead::latest()
             ->get();
-        $assignableUsers = User::whereHas('roles', function($query) {
+        $assignableUsers = User::whereHas('roles', function ($query) {
             $query->whereIn('name', ['counselor', 'manager']);
-        })->get();        
+        })->get();
 
         return view('leads.index', compact('leads'));
     }
@@ -65,26 +64,25 @@ class LeadController extends Controller
         return view('leads.edit', compact('lead'));
     }
 
-   public function update(Request $request, Lead $lead)
-{
-    $validated = $request->validate([
-        'first_name' => 'required|string|max:255',
-        'last_name' => 'required|string|max:255',
-        'email' => 'nullable|email|max:255',
-        'phone' => 'nullable|string|max:20',
-        'age' => 'nullable|integer|min:1|max:100',
-        'city' => 'nullable|string|max:255',
-        'passport' => 'nullable|in:yes,no',
-        'inquiry_date' => 'nullable|date',
-        'study_level' => 'nullable|in:foundation,diploma,bachelor,master,phd',
-        'priority' => 'nullable|in:very_high,high,medium,low,very_low',
-        'preferred_universities' => 'nullable|string|max:1000',
-        'special_notes' => 'nullable|string|max:2000',
-        'status' => 'nullable|in:new,contacted,qualified,converted,rejected',
-        'assigned_to' => 'nullable|exists:users,id',
-    ]);
+    public function update(Request $request, Lead $lead)
+    {
+        $validated = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'nullable|email|max:255',
+            'phone' => 'nullable|string|max:20',
+            'age' => 'nullable|integer|min:1|max:100',
+            'city' => 'nullable|string|max:255',
+            'passport' => 'nullable|in:yes,no',
+            'inquiry_date' => 'nullable|date',
+            'study_level' => 'nullable|in:foundation,diploma,bachelor,master,phd',
+            'priority' => 'nullable|in:very_high,high,medium,low,very_low',
+            'preferred_universities' => 'nullable|string|max:1000',
+            'special_notes' => 'nullable|string|max:2000',
+            'status' => 'nullable|in:new,contacted,qualified,converted,rejected',
+        ]);
 
-    $lead->update($validated);
+        $lead->update($validated);
 
         return redirect()->route('leads.index')
             ->with('success', 'Lead updated successfully!');
@@ -102,7 +100,7 @@ class LeadController extends Controller
     public function updateStatus(Request $request, Lead $lead)
     {
         $request->validate([
-            'status' => 'required|in:new,contacted,qualified,converted,rejected'
+            'status' => 'required|in:new,contacted,qualified,converted,rejected',
         ]);
 
         $oldStatus = $lead->status;
@@ -114,7 +112,7 @@ class LeadController extends Controller
             'lead_id' => $lead->id,
             'action' => 'status_changed',
             'description' => "Status changed from {$oldStatus} to {$request->status}",
-            'metadata' => ['old_status' => $oldStatus, 'new_status' => $request->status]
+            'metadata' => ['old_status' => $oldStatus, 'new_status' => $request->status],
         ]);
 
         return redirect()->route('leads.index')
@@ -127,7 +125,7 @@ class LeadController extends Controller
         $request->validate([
             'lead_ids' => 'required|array',
             'lead_ids.*' => 'exists:leads,id',
-            'status' => 'required|in:new,contacted,qualified,converted,rejected'
+            'status' => 'required|in:new,contacted,qualified,converted,rejected',
         ]);
 
         $updatedCount = 0;
@@ -143,7 +141,7 @@ class LeadController extends Controller
                     'lead_id' => $lead->id,
                     'action' => 'status_changed',
                     'description' => "Status changed from {$oldStatus} to {$request->status}",
-                    'metadata' => ['old_status' => $oldStatus, 'new_status' => $request->status]
+                    'metadata' => ['old_status' => $oldStatus, 'new_status' => $request->status],
                 ]);
 
                 $updatedCount++;

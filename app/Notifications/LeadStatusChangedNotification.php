@@ -12,9 +12,7 @@ class LeadStatusChangedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public Lead $lead, public string $oldStatus, public string $newStatus)
-    {
-    }
+    public function __construct(public Lead $lead, public string $oldStatus, public string $newStatus) {}
 
     public function via(object $notifiable): array
     {
@@ -24,12 +22,12 @@ class LeadStatusChangedNotification extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->subject('Lead Status Updated')
-                    ->line("Lead status for {$this->lead->full_name} has been changed:")
-                    ->line("From: {$this->oldStatus}")
-                    ->line("To: {$this->newStatus}")
-                    ->action('View Lead', route('leads.show', $this->lead))
-                    ->line('Thank you for using our CRM!');
+            ->subject('Lead Status Updated')
+            ->line("Lead status for {$this->lead->full_name} has been changed:")
+            ->line("From: {$this->oldStatus}")
+            ->line("To: {$this->newStatus}")
+            ->action('View Lead', route('leads.show', $this->lead))
+            ->line('Thank you for using our CRM!');
     }
 
     public function toArray(object $notifiable): array

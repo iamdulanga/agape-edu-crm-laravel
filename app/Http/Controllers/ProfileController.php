@@ -17,6 +17,7 @@ class ProfileController extends Controller
     public function show()
     {
         $user = Auth::user()->load('roles');
+
         return view('profile.show', compact('user'));
     }
 
@@ -27,7 +28,7 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $userRole = $user->roles->first();
-        
+
         // Validate based on role
         $rules = [
             'name' => ['required', 'string', 'max:255'],
@@ -42,7 +43,7 @@ class ProfileController extends Controller
 
         // Update user fields
         $user->name = $validated['name'];
-        
+
         // Only update username if user has permission
         if (isset($validated['username']) && $userRole && in_array($userRole->name, ['owner', 'manager'])) {
             $user->username = $validated['username'];
@@ -66,7 +67,7 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         // Verify current password
-        if (!Hash::check($validated['current_password'], $user->password)) {
+        if (! Hash::check($validated['current_password'], $user->password)) {
             return back()->withErrors(['current_password' => 'Current password is incorrect.']);
         }
 
@@ -119,7 +120,7 @@ class ProfileController extends Controller
             'password' => ['required', 'string'],
         ]);
 
-        if (!Hash::check($request->password, $user->password)) {
+        if (! Hash::check($request->password, $user->password)) {
             return back()->withErrors(['password' => 'Password is incorrect.']);
         }
 

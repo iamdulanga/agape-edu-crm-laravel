@@ -413,11 +413,11 @@
                                 <!-- Status Update Modal for each lead -->
                                 @include('leads.partials.status-modal', ['lead' => $lead])
 
-                                <!-- Assignment Modal for each lead -->
-                                @include('leads.partials.assign-modal', ['lead' => $lead])
+                                <!-- Assignment Modal for each lead - DISABLED: assigned_to column removed -->
+                                {{-- @include('leads.partials.assign-modal', ['lead' => $lead]) --}}
 
-                                <!-- Unassign Modal for each lead -->
-                                @include('leads.partials.unassign-modal', ['lead' => $lead])
+                                <!-- Unassign Modal for each lead - DISABLED: assigned_to column removed -->
+                                {{-- @include('leads.partials.unassign-modal', ['lead' => $lead]) --}}
 
                             @empty
                                 <tr>
@@ -459,8 +459,8 @@
         <!-- Add Lead Modal -->
         @include('leads.partials.create-modal')
 
-        <!-- Bulk Assign Modal -->
-        @include('leads.partials.bulk-assign-modal')
+        <!-- Bulk Assign Modal - DISABLED: assigned_to column removed -->
+        {{-- @include('leads.partials.bulk-assign-modal') --}}
 
         <!-- Bulk Status Modal -->
         @include('leads.partials.bulk-status-modal')
