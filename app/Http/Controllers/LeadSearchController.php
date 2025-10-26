@@ -47,18 +47,9 @@ class LeadSearchController extends Controller
             $query->whereDate('inquiry_date', '<=', $request->date_to);
         }
 
-        // Assigned filter
-        if ($request->filled('assigned') && $request->assigned !== 'all') {
-            if ($request->assigned === 'assigned') {
-                $query->whereNotNull('assigned_to');
-            } elseif ($request->assigned === 'unassigned') {
-                $query->whereNull('assigned_to');
-            } elseif ($request->assigned === 'me') {
-                $query->where('assigned_to', auth()->id());
-            }
-        }
+        // Note: Assignment filter has been removed as the assigned_to column is obsolete
 
-        $leads = $query->with('assignedUser')->latest()->get();
+        $leads = $query->latest()->get();
 
         return view('leads.index', compact('leads'));
     }

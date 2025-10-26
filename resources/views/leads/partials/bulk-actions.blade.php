@@ -4,11 +4,7 @@
             <span id="selected-count" class="font-medium">0</span> leads selected
         </div>
         <div class="flex space-x-2">
-            <!-- Bulk Assign -->
-            <button type="button" onclick="toggleModal('bulk-assign-modal')" 
-                    class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                Assign Selected
-            </button>
+            <!-- Note: Bulk Assign functionality has been removed as assigned_to column is obsolete -->
 
             <!-- Bulk Status -->
             <button type="button" onclick="toggleModal('bulk-status-modal')" 

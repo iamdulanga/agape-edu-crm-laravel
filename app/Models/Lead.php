@@ -25,65 +25,23 @@ class Lead extends Model
         'preferred_universities',
         'special_notes',
         'status',
-        'assigned_to',
-        'avatar', // Add avatar to fillable
+        'avatar',
     ];
 
     protected $casts = [
         'inquiry_date' => 'date',
     ];
 
-    public function assignedUser()
-    {
-        return $this->belongsTo(User::class, 'assigned_to');
-    }
+    /**
+     * Note: The assigned_to column and related assignment functionality have been removed.
+     * The following methods were removed: assignedUser(), assignTo(), unassign(), 
+     * isAssigned(), scopeAssignedTo(), scopeUnassigned()
+     * If assignment functionality is needed in the future, it should be implemented
+     * through a separate assignment tracking table rather than a column on the leads table.
+     */
 
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
-    }
-
-    public function assignTo(User $user, $currentUserId)
-    {
-        $this->update(['assigned_to' => $user->id]);
-
-        Activity::create([
-            'user_id' => $currentUserId,
-            'lead_id' => $this->id,
-            'action' => 'assigned',
-            'description' => "Lead assigned to {$user->name}",
-            'metadata' => ['assigned_to' => $user->id],
-        ]);
-
-        return $this;
-    }
-
-    public function unassign($currentUserId)
-    {
-        $this->update(['assigned_to' => null]);
-
-        Activity::create([
-            'user_id' => $currentUserId,
-            'lead_id' => $this->id,
-            'action' => 'unassigned',
-            'description' => 'Lead unassigned',
-        ]);
-
-        return $this;
-    }
-
-    public function isAssigned()
-    {
-        return !is_null($this->assigned_to);
-    }
-
-    public function scopeAssignedTo($query, $userId)
-    {
-        return $query->where('assigned_to', $userId);
-    }
-
-    public function scopeUnassigned($query)
-    {
-        return $query->whereNull('assigned_to');
     }
 }

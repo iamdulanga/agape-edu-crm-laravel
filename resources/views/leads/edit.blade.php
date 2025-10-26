@@ -141,25 +141,6 @@
                         @error('status') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                     </div>
 
-                    <div>
-                        <label for="assigned_to" class="block text-sm font-medium text-gray-700">Assigned To</label>
-                        <select name="assigned_to" id="assigned_to"
-                                class="mt-1 block w-full rounded-md border {{ $errors->has('assigned_to') ? 'border-red-300' : 'border-gray-200' }} bg-white px-3 py-2 focus:border-blue-500  focus:ring-blue-500 sm:text-sm">
-                            <option value="">Unassigned</option>
-                            @php
-                                $assignableUsers = \App\Models\User::whereHas('roles', function($query) {
-                                    $query->whereIn('name', ['counselor', 'manager']);
-                                })->get();
-                            @endphp
-                            @foreach($assignableUsers as $user)
-                                <option value="{{ $user->id }}" {{ old('assigned_to', $lead->assigned_to) == $user->id ? 'selected' : '' }}>
-                                    {{ $user->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('assigned_to') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
-                    </div>
-
                     <!-- Preferred Universities -->
                     <div class="sm:col-span-2">
                         <label for="preferred_universities" class="block text-sm font-medium text-gray-700">Preferred Universities</label>

@@ -7,78 +7,47 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Notifications\LeadAssignedNotification;
 
+/**
+ * DEPRECATED: This controller is no longer functional as the assigned_to column
+ * has been removed from the leads table. All assignment-related functionality
+ * has been disabled. If assignment tracking is needed in the future, it should
+ * be implemented through a separate assignment tracking table.
+ */
 class LeadAssignmentController extends Controller
 {
     /**
      * Show assign form modal for a given lead.
+     * @deprecated Assignment functionality has been removed
      */
     public function assignForm(Lead $lead)
     {
-        $assignableUsers = User::whereHas('roles', function ($query) {
-            $query->whereIn('name', ['counselor', 'manager']);
-        })->get();
-
-        return view('leads.partials.assign-modal', compact('lead', 'assignableUsers'));
+        abort(404, 'Assignment functionality has been removed');
     }
 
     /**
      * Assign a lead to a specific user.
+     * @deprecated Assignment functionality has been removed
      */
     public function assign(Request $request, Lead $lead)
     {
-        $request->validate([
-            'assigned_to' => 'required|exists:users,id',
-        ]);
-
-        $user = User::findOrFail($request->assigned_to);
-
-        // Ensure Lead model supports this method
-        $lead->assignTo($user, auth()->id());
-
-        // Notify assigned user
-        $user->notify(new LeadAssignedNotification($lead));
-
-        return redirect()
-            ->route('leads.index')
-            ->with('success', "Lead assigned to {$user->name} successfully!");
+        abort(404, 'Assignment functionality has been removed');
     }
 
     /**
      * Unassign a lead.
+     * @deprecated Assignment functionality has been removed
      */
     public function unassign(Lead $lead)
     {
-        $lead->unassign(auth()->id());
-
-        return redirect()
-            ->route('leads.index')
-            ->with('success', 'Lead unassigned successfully!');
+        abort(404, 'Assignment functionality has been removed');
     }
 
     /**
      * Bulk assign multiple leads to a user.
+     * @deprecated Assignment functionality has been removed
      */
     public function bulkAssign(Request $request)
     {
-        $request->validate([
-            'lead_ids' => 'required|array',
-            'lead_ids.*' => 'exists:leads,id',
-            'assigned_to' => 'required|exists:users,id',
-        ]);
-
-        $user = User::findOrFail($request->assigned_to);
-        $assignedCount = 0;
-
-        foreach ($request->lead_ids as $leadId) {
-            $lead = Lead::find($leadId);
-            if ($lead) {
-                $lead->assignTo($user, auth()->id());
-                $assignedCount++;
-            }
-        }
-
-        return redirect()
-            ->route('leads.index')
-            ->with('success', "{$assignedCount} leads assigned to {$user->name}!");
+        abort(404, 'Assignment functionality has been removed');
     }
 }

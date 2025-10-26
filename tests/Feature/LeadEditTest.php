@@ -117,25 +117,26 @@ class LeadEditTest extends TestCase
     }
 
     /** @test */
-    public function it_can_update_assigned_to_field()
-    {
-        $counselor = User::factory()->create();
-        $counselorRole = Role::create(['name' => 'counselor']);
-        $counselor->roles()->attach($counselorRole);
-
-        $response = $this->actingAs($this->user)
-            ->patch(route('leads.update', $this->lead), [
-                'first_name' => $this->lead->first_name,
-                'last_name' => $this->lead->last_name,
-                'assigned_to' => $counselor->id,
-            ]);
-
-        $response->assertRedirect(route('leads.index'));
-        $this->assertDatabaseHas('leads', [
-            'id' => $this->lead->id,
-            'assigned_to' => $counselor->id,
-        ]);
-    }
+    // DISABLED: Test removed as assigned_to column has been removed from leads table
+    // public function it_can_update_assigned_to_field()
+    // {
+    //     $counselor = User::factory()->create();
+    //     $counselorRole = Role::create(['name' => 'counselor']);
+    //     $counselor->roles()->attach($counselorRole);
+    //
+    //     $response = $this->actingAs($this->user)
+    //         ->patch(route('leads.update', $this->lead), [
+    //             'first_name' => $this->lead->first_name,
+    //             'last_name' => $this->lead->last_name,
+    //             'assigned_to' => $counselor->id,
+    //         ]);
+    //
+    //     $response->assertRedirect(route('leads.index'));
+    //     $this->assertDatabaseHas('leads', [
+    //         'id' => $this->lead->id,
+    //         'assigned_to' => $counselor->id,
+    //     ]);
+    // }
 
     /** @test */
     public function it_requires_authentication()
