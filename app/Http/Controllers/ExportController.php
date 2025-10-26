@@ -16,7 +16,7 @@ class ExportController extends Controller
         // leads table are also added to this export mapping.
         $leads = Lead::all();
 
-        return (new FastExcel($leads))->download('leads-' . date('Y-m-d') . '.xlsx', function ($lead) {
+        return (new FastExcel($leads))->download('leads-'.date('Y-m-d').'.xlsx', function ($lead) {
             return [
                 'ID' => $lead->id,
                 'First Name' => $lead->first_name,
@@ -46,10 +46,10 @@ class ExportController extends Controller
 
         if ($request->filled('search')) {
             $searchTerm = $request->search;
-            $query->where(function($q) use ($searchTerm) {
+            $query->where(function ($q) use ($searchTerm) {
                 $q->where('first_name', 'like', "%{$searchTerm}%")
-                  ->orWhere('last_name', 'like', "%{$searchTerm}%")
-                  ->orWhere('email', 'like', "%{$searchTerm}%");
+                    ->orWhere('last_name', 'like', "%{$searchTerm}%")
+                    ->orWhere('email', 'like', "%{$searchTerm}%");
             });
         }
 
@@ -59,7 +59,7 @@ class ExportController extends Controller
 
         $leads = $query->get();
 
-        return (new FastExcel($leads))->download('filtered-leads-' . date('Y-m-d') . '.xlsx', function ($lead) {
+        return (new FastExcel($leads))->download('filtered-leads-'.date('Y-m-d').'.xlsx', function ($lead) {
             return [
                 'ID' => $lead->id,
                 'First Name' => $lead->first_name,

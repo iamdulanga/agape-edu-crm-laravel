@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Lead;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Notifications\LeadAssignedNotification;
 
 /**
  * DEPRECATED: This controller is no longer functional as the assigned_to column
@@ -17,6 +16,7 @@ class LeadAssignmentController extends Controller
 {
     /**
      * Show assign form modal for a given lead.
+     *
      * @deprecated Assignment functionality has been removed
      */
     public function assignForm(Lead $lead)
@@ -26,6 +26,7 @@ class LeadAssignmentController extends Controller
 
     /**
      * Assign a lead to a specific user.
+     *
      * @deprecated Assignment functionality has been removed
      */
     public function assign(Request $request, Lead $lead)
@@ -35,6 +36,7 @@ class LeadAssignmentController extends Controller
 
     /**
      * Unassign a lead.
+     *
      * @deprecated Assignment functionality has been removed
      */
     public function unassign(Lead $lead)
@@ -44,6 +46,7 @@ class LeadAssignmentController extends Controller
 
     /**
      * Bulk assign multiple leads to a user.
+     *
      * @deprecated Assignment functionality has been removed
      */
     public function bulkAssign(Request $request)

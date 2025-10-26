@@ -12,9 +12,7 @@ class LeadAssignedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public Lead $lead)
-    {
-    }
+    public function __construct(public Lead $lead) {}
 
     public function via(object $notifiable): array
     {
@@ -24,13 +22,13 @@ class LeadAssignedNotification extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->subject('New Lead Assignment')
-                    ->line('You have been assigned a new lead:')
-                    ->line("Name: {$this->lead->full_name}")
-                    ->line("Email: {$this->lead->email}")
-                    ->line("Phone: {$this->lead->phone}")
-                    ->action('View Lead', route('leads.show', $this->lead))
-                    ->line('Please follow up with the lead as soon as possible.');
+            ->subject('New Lead Assignment')
+            ->line('You have been assigned a new lead:')
+            ->line("Name: {$this->lead->full_name}")
+            ->line("Email: {$this->lead->email}")
+            ->line("Phone: {$this->lead->phone}")
+            ->action('View Lead', route('leads.show', $this->lead))
+            ->line('Please follow up with the lead as soon as possible.');
     }
 
     public function toArray(object $notifiable): array

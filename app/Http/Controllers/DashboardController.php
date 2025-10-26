@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lead;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -62,7 +60,7 @@ class DashboardController extends Controller
     {
         $totalLeads = Lead::count();
         $convertedLeads = Lead::where('status', 'converted')->count();
-        
+
         return $totalLeads > 0 ? round(($convertedLeads / $totalLeads) * 100, 1) : 0;
     }
 
@@ -71,7 +69,7 @@ class DashboardController extends Controller
         // Simplified team performance calculation
         $totalLeads = Lead::count();
         $qualifiedLeads = Lead::whereIn('status', ['qualified', 'converted'])->count();
-        
+
         return $totalLeads > 0 ? round(($qualifiedLeads / $totalLeads) * 100, 1) : 0;
     }
 }
