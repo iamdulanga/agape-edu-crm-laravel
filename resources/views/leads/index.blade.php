@@ -9,7 +9,7 @@
             <p class="mt-1 text-sm text-gray-500 ml-0 sm:ml-10">Manage and track your leads efficiently</p>
         </div>
         <div class="flex items-center space-x-2 mt-2 sm:mt-0">
-            <!-- Create Account Button (Only for Owners and Managers) -->
+            <!-- Create Account Button (Only for Owners and Managers)
             @if (auth()->user()->hasRole('owner') || auth()->user()->hasRole('manager'))
                 <button onclick="toggleModal('create-account-modal')"
                     class="inline-flex items-center rounded-lg border border-blue-500 bg-white px-4 py-2 text-sm font-medium text-blue-500 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
@@ -20,7 +20,7 @@
                     </svg>
                     Create Account
                 </button>
-            @endif
+            @endif -->
 
             <!-- Export Button -->
             <form action="{{ route('leads.export') }}" method="POST" class="inline">
