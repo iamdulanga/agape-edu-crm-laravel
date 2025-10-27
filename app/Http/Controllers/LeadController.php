@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreLeadRequest;
+use App\Http\Requests\UpdateLeadRequest;
 use App\Models\Activity;
 use App\Models\Lead;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class LeadController extends Controller
 {
     public function index()
     {
+        // Authorization check
+        $this->authorize('viewAny', Lead::class);
+
         $leads = Lead::latest()
             ->get();
         $assignableUsers = User::whereHas('roles', function ($query) {
@@ -25,26 +31,19 @@ class LeadController extends Controller
         return view('leads.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreLeadRequest $request)
     {
-        $validated = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'nullable|email|max:255',
-            'phone' => 'nullable|string|max:20',
-            'age' => 'nullable|integer|min:1|max:100',
-            'city' => 'nullable|string|max:255',
-            'passport' => 'nullable|in:yes,no',
-            'inquiry_date' => 'nullable|date',
-            'study_level' => 'nullable|in:foundation,diploma,bachelor,master,phd',
-            'priority' => 'nullable|in:very_high,high,medium,low,very_low',
-            'preferred_universities' => 'nullable|string|max:1000',
-            'special_notes' => 'nullable|string|max:2000',
-            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate avatar
-        ]);
+        // Authorization check
+        $this->authorize('create', Lead::class);
+
+        $validated = $request->validated();
 
         if ($request->hasFile('avatar')) {
-            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            // Sanitize filename to prevent directory traversal
+            $file = $request->file('avatar');
+            $extension = $file->getClientOriginalExtension();
+            $filename = uniqid('lead_', true) . '.' . $extension;
+            $avatarPath = $file->storeAs('avatars', $filename, 'public');
             $validated['avatar'] = $avatarPath;
         }
 
@@ -56,31 +55,26 @@ class LeadController extends Controller
 
     public function show(Lead $lead)
     {
+        // Authorization check
+        $this->authorize('view', $lead);
+
         return view('leads.show', compact('lead'));
     }
 
     public function edit(Lead $lead)
     {
+        // Authorization check
+        $this->authorize('update', $lead);
+
         return view('leads.edit', compact('lead'));
     }
 
-    public function update(Request $request, Lead $lead)
+    public function update(UpdateLeadRequest $request, Lead $lead)
     {
-        $validated = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'nullable|email|max:255',
-            'phone' => 'nullable|string|max:20',
-            'age' => 'nullable|integer|min:1|max:100',
-            'city' => 'nullable|string|max:255',
-            'passport' => 'nullable|in:yes,no',
-            'inquiry_date' => 'nullable|date',
-            'study_level' => 'nullable|in:foundation,diploma,bachelor,master,phd',
-            'priority' => 'nullable|in:very_high,high,medium,low,very_low',
-            'preferred_universities' => 'nullable|string|max:1000',
-            'special_notes' => 'nullable|string|max:2000',
-            'status' => 'nullable|in:new,contacted,qualified,converted,rejected',
-        ]);
+        // Authorization check
+        $this->authorize('update', $lead);
+
+        $validated = $request->validated();
 
         $lead->update($validated);
 
@@ -90,6 +84,14 @@ class LeadController extends Controller
 
     public function destroy(Lead $lead)
     {
+        // Authorization check
+        $this->authorize('delete', $lead);
+
+        // Delete avatar if exists
+        if ($lead->avatar && Storage::disk('public')->exists($lead->avatar)) {
+            Storage::disk('public')->delete($lead->avatar);
+        }
+
         $lead->delete();
 
         return redirect()->route('leads.index')
@@ -99,6 +101,9 @@ class LeadController extends Controller
     // Update the updateStatus method:
     public function updateStatus(Request $request, Lead $lead)
     {
+        // Authorization check
+        $this->authorize('update', $lead);
+
         $request->validate([
             'status' => 'required|in:new,contacted,qualified,converted,rejected',
         ]);
@@ -106,9 +111,9 @@ class LeadController extends Controller
         $oldStatus = $lead->status;
         $lead->update(['status' => $request->status]);
 
-        // Log status change - FIXED: use auth()->id() directly
+        // Log status change
         Activity::create([
-            'user_id' => $request->user()->id, // This works in controller methods
+            'user_id' => $request->user()->id,
             'lead_id' => $lead->id,
             'action' => 'status_changed',
             'description' => "Status changed from {$oldStatus} to {$request->status}",
@@ -122,9 +127,12 @@ class LeadController extends Controller
     // Update the bulkStatusUpdate method:
     public function bulkStatusUpdate(Request $request)
     {
+        // Authorization check
+        $this->authorize('bulkUpdate', Lead::class);
+
         $request->validate([
-            'lead_ids' => 'required|array',
-            'lead_ids.*' => 'exists:leads,id',
+            'lead_ids' => 'required|array|min:1',
+            'lead_ids.*' => 'required|integer|exists:leads,id',
             'status' => 'required|in:new,contacted,qualified,converted,rejected',
         ]);
 
@@ -137,7 +145,7 @@ class LeadController extends Controller
                 $lead->update(['status' => $request->status]);
 
                 Activity::create([
-                    'user_id' => $request->user()->id, // This works in controller methods
+                    'user_id' => $request->user()->id,
                     'lead_id' => $lead->id,
                     'action' => 'status_changed',
                     'description' => "Status changed from {$oldStatus} to {$request->status}",

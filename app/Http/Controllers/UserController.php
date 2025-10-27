@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,16 +13,12 @@ class UserController extends Controller
     /**
      * Store a newly created user in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        // Validate the request
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|in:owner,manager,counselor',
-        ]);
+        // Authorization check
+        $this->authorize('create', User::class);
+
+        $validated = $request->validated();
 
         // Check authorization based on current user's role
         $currentUser = $request->user();
@@ -76,6 +73,9 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        // Authorization check
+        $this->authorize('delete', $user);
+
         $currentUser = auth()->user();
 
         // Prevent self-deletion

@@ -10,6 +10,9 @@ class ExportController extends Controller
 {
     public function exportLeads(Request $request)
     {
+        // Authorization check
+        $this->authorize('export', Lead::class);
+
         // Note: The 'assigned_to' column has been removed from the leads table.
         // This export now only includes fields that exist in the current schema.
         // To maintain export field alignment, ensure any new columns added to the
@@ -39,13 +42,22 @@ class ExportController extends Controller
 
     public function exportFilteredLeads(Request $request)
     {
+        // Authorization check
+        $this->authorize('export', Lead::class);
+
+        // Validate request inputs to prevent injection
+        $validated = $request->validate([
+            'search' => 'nullable|string|max:255',
+            'status' => 'nullable|in:all,new,contacted,qualified,converted,rejected',
+        ]);
+
         // Note: The 'assigned_to' column has been removed from the leads table.
         // This export now only includes fields that exist in the current schema.
         // Apply the same filters as search
         $query = Lead::query();
 
         if ($request->filled('search')) {
-            $searchTerm = $request->search;
+            $searchTerm = $validated['search'];
             $query->where(function ($q) use ($searchTerm) {
                 $q->where('first_name', 'like', "%{$searchTerm}%")
                     ->orWhere('last_name', 'like', "%{$searchTerm}%")
@@ -53,8 +65,8 @@ class ExportController extends Controller
             });
         }
 
-        if ($request->filled('status') && $request->status !== 'all') {
-            $query->where('status', $request->status);
+        if ($request->filled('status') && $validated['status'] !== 'all') {
+            $query->where('status', $validated['status']);
         }
 
         $leads = $query->get();
