@@ -24,6 +24,9 @@ class StoreUserRequest extends FormRequest
         return [
             'name' => 'required|string|max:255|regex:/^[a-zA-Z\s\-\']+$/',
             'username' => 'required|string|max:255|unique:users|regex:/^[a-zA-Z0-9_\-]+$/',
+            // Note: DNS validation removed to allow test emails (e.g., user@test.com)
+            // For production, consider adding 'dns' flag: 'email:rfc,dns'
+            // This will verify the domain has valid MX records
             'email' => 'required|email:rfc|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
             'role' => 'required|in:owner,manager,counselor',

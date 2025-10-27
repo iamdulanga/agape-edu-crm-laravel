@@ -41,7 +41,14 @@ class SecurityHeaders
         }
 
         // Content Security Policy - adjust as needed for your application
-        // This is a basic policy that can be customized based on requirements
+        // NOTE: This is a permissive policy to ensure compatibility with existing scripts
+        // For production, consider implementing a stricter CSP:
+        // 1. Remove 'unsafe-inline' and 'unsafe-eval' from script-src
+        // 2. Use nonce-based or hash-based CSP for inline scripts
+        // 3. Specify exact domains instead of 'self' where possible
+        // 4. Test thoroughly before deploying strict CSP
+        // Example strict policy:
+        // $csp = "default-src 'none'; script-src 'self' 'nonce-{$nonce}'; style-src 'self'; img-src 'self' data: https:; font-src 'self' data:;";
         $csp = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:;";
         $response->headers->set('Content-Security-Policy', $csp);
 

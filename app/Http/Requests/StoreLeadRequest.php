@@ -24,6 +24,9 @@ class StoreLeadRequest extends FormRequest
         return [
             'first_name' => 'required|string|max:255|regex:/^[a-zA-Z\s\-\']+$/',
             'last_name' => 'required|string|max:255|regex:/^[a-zA-Z\s\-\']+$/',
+            // Note: DNS validation removed to allow test emails (e.g., lead@test.com)
+            // For production, consider adding 'dns' flag: 'email:rfc,dns'
+            // This will verify the domain has valid MX records
             'email' => 'nullable|email:rfc|max:255',
             'phone' => 'nullable|string|max:20|regex:/^[\d\s\+\-\(\)]+$/',
             'age' => 'nullable|integer|min:1|max:120',
