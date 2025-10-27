@@ -11,6 +11,9 @@ class UserManagementController extends Controller
      */
     public function index()
     {
+        // Authorization check
+        $this->authorize('viewAny', User::class);
+
         $users = User::with('roles')->get();
 
         return view('users.index', compact('users'));

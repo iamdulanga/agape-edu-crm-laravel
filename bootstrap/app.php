@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'role' => \App\Http\Middleware\CheckRole::class,
         ]);
-        
+
         // Add security headers to all web routes
         $middleware->appendToGroup('web', [
             \App\Http\Middleware\SecurityHeaders::class,

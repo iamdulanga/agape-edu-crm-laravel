@@ -42,7 +42,7 @@ class LeadController extends Controller
             // Sanitize filename to prevent directory traversal
             $file = $request->file('avatar');
             $extension = $file->getClientOriginalExtension();
-            $filename = uniqid('lead_', true) . '.' . $extension;
+            $filename = uniqid('lead_', true).'.'.$extension;
             $avatarPath = $file->storeAs('avatars', $filename, 'public');
             $validated['avatar'] = $avatarPath;
         }

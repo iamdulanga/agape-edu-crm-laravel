@@ -33,8 +33,8 @@ class UserCreationRoleRestrictionTest extends TestCase
             'name' => 'Test Manager',
             'username' => 'testmanager',
             'email' => 'manager@test.com',
-            'password' => 'password123',
-            'password_confirmation' => 'password123',
+            'password' => 'Password123',
+            'password_confirmation' => 'Password123',
             'role' => 'manager',
         ]);
 
@@ -55,8 +55,8 @@ class UserCreationRoleRestrictionTest extends TestCase
             'name' => 'Test Counselor',
             'username' => 'testcounselor',
             'email' => 'counselor@test.com',
-            'password' => 'password123',
-            'password_confirmation' => 'password123',
+            'password' => 'Password123',
+            'password_confirmation' => 'Password123',
             'role' => 'counselor',
         ]);
 
@@ -77,8 +77,8 @@ class UserCreationRoleRestrictionTest extends TestCase
             'name' => 'Another Owner',
             'username' => 'anotherowner',
             'email' => 'owner2@test.com',
-            'password' => 'password123',
-            'password_confirmation' => 'password123',
+            'password' => 'Password123',
+            'password_confirmation' => 'Password123',
             'role' => 'owner',
         ]);
 
@@ -99,8 +99,8 @@ class UserCreationRoleRestrictionTest extends TestCase
             'name' => 'Test Counselor',
             'username' => 'testcounselor',
             'email' => 'counselor@test.com',
-            'password' => 'password123',
-            'password_confirmation' => 'password123',
+            'password' => 'Password123',
+            'password_confirmation' => 'Password123',
             'role' => 'counselor',
         ]);
 
@@ -121,8 +121,8 @@ class UserCreationRoleRestrictionTest extends TestCase
             'name' => 'Another Manager',
             'username' => 'anothermanager',
             'email' => 'manager2@test.com',
-            'password' => 'password123',
-            'password_confirmation' => 'password123',
+            'password' => 'Password123',
+            'password_confirmation' => 'Password123',
             'role' => 'manager',
         ]);
 
@@ -143,8 +143,8 @@ class UserCreationRoleRestrictionTest extends TestCase
             'name' => 'Test Owner',
             'username' => 'testowner',
             'email' => 'owner@test.com',
-            'password' => 'password123',
-            'password_confirmation' => 'password123',
+            'password' => 'Password123',
+            'password_confirmation' => 'Password123',
             'role' => 'owner',
         ]);
 
@@ -165,8 +165,8 @@ class UserCreationRoleRestrictionTest extends TestCase
             'name' => 'Test User',
             'username' => 'testuser',
             'email' => 'user@test.com',
-            'password' => 'password123',
-            'password_confirmation' => 'password123',
+            'password' => 'Password123',
+            'password_confirmation' => 'Password123',
             'role' => 'counselor',
         ]);
 

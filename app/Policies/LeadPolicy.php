@@ -41,8 +41,8 @@ class LeadPolicy
     {
         // Owners and Managers can update any lead
         // Counselors can also update leads (as per business requirements)
-        return $user->hasRole('owner') 
-            || $user->hasRole('manager') 
+        return $user->hasRole('owner')
+            || $user->hasRole('manager')
             || $user->hasRole('counselor');
     }
 

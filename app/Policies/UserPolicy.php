@@ -21,8 +21,8 @@ class UserPolicy
     public function view(User $user, User $model): bool
     {
         // Users can view their own profile, or Owners/Managers can view any profile
-        return $user->id === $model->id 
-            || $user->hasRole('owner') 
+        return $user->id === $model->id
+            || $user->hasRole('owner')
             || $user->hasRole('manager');
     }
 
@@ -70,7 +70,7 @@ class UserPolicy
 
         // Owners can delete anyone except themselves
         if ($user->hasRole('owner')) {
-            return !$model->hasRole('owner');
+            return ! $model->hasRole('owner');
         }
 
         // Managers can only delete counselors

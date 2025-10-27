@@ -24,7 +24,7 @@ class UpdateLeadRequest extends FormRequest
         return [
             'first_name' => 'required|string|max:255|regex:/^[a-zA-Z\s\-\']+$/',
             'last_name' => 'required|string|max:255|regex:/^[a-zA-Z\s\-\']+$/',
-            'email' => 'nullable|email:rfc,dns|max:255',
+            'email' => 'nullable|email:rfc|max:255',
             'phone' => 'nullable|string|max:20|regex:/^[\d\s\+\-\(\)]+$/',
             'age' => 'nullable|integer|min:1|max:120',
             'city' => 'nullable|string|max:255|regex:/^[a-zA-Z\s\-\']+$/',
@@ -78,7 +78,7 @@ class UpdateLeadRequest extends FormRequest
         if ($value === null) {
             return null;
         }
-        
+
         return trim(strip_tags($value));
     }
 
@@ -90,7 +90,7 @@ class UpdateLeadRequest extends FormRequest
         if ($value === null) {
             return null;
         }
-        
+
         return filter_var(trim($value), FILTER_SANITIZE_EMAIL) ?: null;
     }
 }

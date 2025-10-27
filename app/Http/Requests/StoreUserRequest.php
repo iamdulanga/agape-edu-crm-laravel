@@ -24,7 +24,7 @@ class StoreUserRequest extends FormRequest
         return [
             'name' => 'required|string|max:255|regex:/^[a-zA-Z\s\-\']+$/',
             'username' => 'required|string|max:255|unique:users|regex:/^[a-zA-Z0-9_\-]+$/',
-            'email' => 'required|email:rfc,dns|max:255|unique:users',
+            'email' => 'required|email:rfc|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
             'role' => 'required|in:owner,manager,counselor',
         ];
@@ -63,7 +63,7 @@ class StoreUserRequest extends FormRequest
         if ($value === null) {
             return null;
         }
-        
+
         return trim(strip_tags($value));
     }
 
@@ -75,7 +75,7 @@ class StoreUserRequest extends FormRequest
         if ($value === null) {
             return null;
         }
-        
+
         return strtolower(trim(strip_tags($value)));
     }
 
@@ -87,7 +87,7 @@ class StoreUserRequest extends FormRequest
         if ($value === null) {
             return null;
         }
-        
+
         return filter_var(trim($value), FILTER_SANITIZE_EMAIL) ?: null;
     }
 }
