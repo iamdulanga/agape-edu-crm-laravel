@@ -5,63 +5,44 @@
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" onclick="toggleModal('create-account-modal')"></div>
 
         <!-- Modal panel -->
-        <div class="inline-block transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:align-middle">
-            <form action="{{ route('users.store') }}" method="POST">
-                @csrf
-                
-                <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                    <div class="sm:flex sm:items-start">
-                        <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
-                            <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+        <div class="relative inline-block transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl sm:p-6 sm:align-middle">
+            <div class="sm:flex sm:items-start">
+                <div class="mt-3 w-full text-center sm:mt-0 sm:text-left">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-semibold leading-6 text-gray-900">Create New Account</h3>
+                        <button type="button" onclick="toggleModal('create-account-modal')" class="text-gray-400 hover:text-gray-600 transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                             </svg>
-                        </div>
-                        <div class="mt-3 w-full text-center sm:ml-4 sm:mt-0 sm:text-left">
-                            <h3 class="text-lg font-medium leading-6 text-gray-900" id="modal-title">
-                                Create New Account
-                            </h3>
-                            <div class="mt-4 space-y-4">
-                                <!-- Name -->
+                        </button>
+                    </div>
+
+                    <form action="{{ route('users.store') }}" method="POST" class="space-y-6">
+                        @csrf
+                        
+                        <!-- Account Information -->
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h4 class="text-md font-medium text-gray-900 mb-4">Account Information</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label for="name" class="block text-sm font-medium text-gray-700">Full Name *</label>
+                                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
                                     <input type="text" name="name" id="name" required
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
                                 </div>
-
-                                <!-- Username -->
                                 <div>
-                                    <label for="username" class="block text-sm font-medium text-gray-700">Username *</label>
+                                    <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username *</label>
                                     <input type="text" name="username" id="username" required
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
                                 </div>
-
-                                <!-- Email -->
                                 <div>
-                                    <label for="email" class="block text-sm font-medium text-gray-700">Email *</label>
+                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email *</label>
                                     <input type="email" name="email" id="email" required
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
                                 </div>
-
-                                <!-- Password -->
                                 <div>
-                                    <label for="password" class="block text-sm font-medium text-gray-700">Password *</label>
-                                    <input type="password" name="password" id="password" required minlength="8"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
-                                    <p class="mt-1 text-xs text-gray-500">Minimum 8 characters</p>
-                                </div>
-
-                                <!-- Confirm Password -->
-                                <div>
-                                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm Password *</label>
-                                    <input type="password" name="password_confirmation" id="password_confirmation" required minlength="8"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
-                                </div>
-
-                                <!-- Role -->
-                                <div>
-                                    <label for="role" class="block text-sm font-medium text-gray-700">Role *</label>
+                                    <label for="role" class="block text-sm font-medium text-gray-700 mb-1">Role *</label>
                                     <select name="role" id="role" required
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
                                         <option value="">Select a role</option>
                                         @php
                                             $currentUser = auth()->user();
@@ -70,31 +51,53 @@
                                         @endphp
                                         
                                         @if($currentUser->hasRole('owner'))
-                                            {{-- Owner can create Managers and Counselors, but NOT another Owner --}}
                                             <option value="manager">Manager</option>
                                             <option value="counselor">Counselor</option>
                                         @elseif($currentUser->hasRole('manager'))
-                                            {{-- Manager can only create Counselors --}}
                                             <option value="counselor">Counselor</option>
                                         @endif
                                     </select>
                                 </div>
                             </div>
                         </div>
-                    </div>
+
+                        <!-- Security Information -->
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h4 class="text-md font-medium text-gray-900 mb-4">Security</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password *</label>
+                                    <input type="password" name="password" id="password" required minlength="8"
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                    <p class="mt-1 text-xs text-gray-500">Minimum 8 characters</p>
+                                </div>
+                                <div>
+                                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password *</label>
+                                    <input type="password" name="password_confirmation" id="password_confirmation" required minlength="8"
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="flex flex-col sm:flex-row sm:justify-end space-y-2 sm:space-y-0 sm:space-x-3 pt-4 border-t border-gray-200">
+                            <button type="button" onclick="toggleModal('create-account-modal')"
+                                    class="w-full sm:w-auto px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                                Cancel
+                            </button>
+                            <button type="submit"
+                                    class="w-full sm:w-auto px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                                <span class="flex items-center justify-center">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                    </svg>
+                                    Create Account
+                                </span>
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                
-                <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                    <button type="submit"
-                        class="inline-flex w-full justify-center rounded-md bg-blue-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm">
-                        Create Account
-                    </button>
-                    <button type="button" onclick="toggleModal('create-account-modal')"
-                        class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:mt-0 sm:w-auto sm:text-sm">
-                        Cancel
-                    </button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
