@@ -14,18 +14,18 @@ Agape EDU CRM is a comprehensive customer relationship management system designe
 
 ## Features
 
-- Student information management
-- User authentication and authorization
-- Role-based access control
-- Database migrations and seeders
-- Modern UI with Tailwind CSS
+- Student information management  
+- User authentication and authorization  
+- Role-based access control  
+- Database migrations and seeders  
+- Modern UI with Tailwind CSS  
 - Excel import/export functionality (via FastExcel)
 
 ## Requirements
 
-- PHP 8.2 or higher
-- Composer
-- Node.js and NPM
+- PHP 8.2 or higher  
+- Composer  
+- Node.js and NPM  
 - MySQL or PostgreSQL database
 
 ## Installation
@@ -34,39 +34,75 @@ Agape EDU CRM is a comprehensive customer relationship management system designe
 ```bash
 git clone https://github.com/iamdulanga/agape-edu-crm-laravel.git
 cd agape-edu-crm-laravel
-```
+````
 
 2. Install PHP dependencies:
+
 ```bash
 composer install
 ```
 
 3. Install Node.js dependencies:
+
 ```bash
 npm install
 ```
 
 4. Copy the environment file and configure your database:
+
 ```bash
 cp .env.example .env
 ```
 
 5. Generate application key:
+
 ```bash
 php artisan key:generate
 ```
 
 6. Run database migrations:
+
 ```bash
 php artisan migrate
 ```
 
-7. Build frontend assets:
+7. Seed the database:
+
+```bash
+php artisan db:seed
+```
+
+8. Build frontend assets:
+
 ```bash
 npm run build
 ```
 
-8. Start the development server:
+> **⚠️ PowerShell Execution Policy Error**
+> If you see this error when running the above command:
+>
+> ```bash
+> PS C:\Users\dilan\Desktop\agape-edu-crm-laravel> npm run build
+> npm : File C:\Program Files\nodejs\npm.ps1 cannot be loaded because running scripts is disabled on this system.
+> For more information, see about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170.
+> At line:1 char:1
+> + npm run build
+> + ~~~
+>     + CategoryInfo          : SecurityError: (:) [], PSSecurityException
+>     + FullyQualifiedErrorId : UnauthorizedAccess
+> ```
+>
+> This happens because PowerShell restricts running certain scripts.
+> To fix it, open **PowerShell as Administrator** and run:
+>
+> ```bash
+> Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+> ```
+>
+> Then try `npm run build` again.
+
+9. Start the development server:
+
 ```bash
 php artisan serve
 ```
@@ -95,11 +131,46 @@ php artisan test
 
 ## Technology Stack
 
-- **Backend:** Laravel 12.x
-- **Frontend:** Vite, Tailwind CSS 4.x
-- **Database:** MySQL/PostgreSQL
-- **Excel Processing:** FastExcel
-- **Testing:** PHPUnit
+* **Backend:** Laravel 12.x
+* **Frontend:** Vite, Tailwind CSS 4.x
+* **Database:** MySQL/PostgreSQL
+* **Excel Processing:** FastExcel
+* **Testing:** PHPUnit
+
+## Troubleshooting
+
+**1. `.env` not found or misconfigured**
+Ensure you’ve created a `.env` file from `.env.example` and updated database credentials correctly.
+
+**2. Permission errors on Linux/Mac**
+Run the following to fix permission issues:
+
+```bash
+sudo chmod -R 775 storage bootstrap/cache
+```
+
+**3. Node build or Vite not working**
+If frontend assets fail to compile, remove `node_modules` and reinstall:
+
+```bash
+rm -rf node_modules
+npm install
+npm run build
+```
+
+**4. Migration or seeding errors**
+Run migrations fresh with seeders:
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+**5. Cache issues after environment updates**
+Clear Laravel caches to reflect config or route changes:
+
+```bash
+php artisan optimize:clear
+```
 
 ## Contributing
 
