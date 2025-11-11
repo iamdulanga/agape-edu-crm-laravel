@@ -339,6 +339,7 @@
                                                     </li>
 
                                                     <!-- Delete Button -->
+                                                    @if (auth()->user()->hasRole('owner') || auth()->user()->hasRole('manager'))
                                                     <li>
                                                         <form action="{{ route('leads.destroy', $lead) }}" method="POST"
                                                             class="w-full">
@@ -359,6 +360,7 @@
                                                             </button>
                                                         </form>
                                                     </li>
+                                                    @endif
 
                                                 </ul>
                                             </div>
