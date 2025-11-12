@@ -40,6 +40,7 @@ class LeadEditTest extends TestCase
             'preferred_universities' => 'Harvard, MIT',
             'special_notes' => 'Interested in Computer Science',
             'status' => 'new',
+            'inquiry_type' => 'Facebook',
         ]);
     }
 
@@ -75,6 +76,7 @@ class LeadEditTest extends TestCase
             'preferred_universities' => 'Stanford, Berkeley',
             'special_notes' => 'Interested in Data Science',
             'status' => 'contacted',
+            'inquiry_type' => 'Instagram',
         ];
 
         $response = $this->actingAs($this->user)
@@ -89,6 +91,7 @@ class LeadEditTest extends TestCase
             'last_name' => 'Smith',
             'email' => 'jane@example.com',
             'status' => 'contacted',
+            'inquiry_type' => 'Instagram',
         ]);
     }
 

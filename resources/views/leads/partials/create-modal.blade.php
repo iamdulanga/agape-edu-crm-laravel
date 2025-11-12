@@ -120,6 +120,21 @@
                                     <input type="date" name="inquiry_date" value="{{ old('inquiry_date', date('Y-m-d')) }}" required
                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
                                 </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Inquiry Type *</label>
+                                    <select name="inquiry_type" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                        <option value="">Select inquiry type</option>
+                                        <option value="Facebook" {{ old('inquiry_type') == 'Facebook' ? 'selected' : '' }}>Facebook</option>
+                                        <option value="Instagram" {{ old('inquiry_type') == 'Instagram' ? 'selected' : '' }}>Instagram</option>
+                                        <option value="Google Form" {{ old('inquiry_type') == 'Google Form' ? 'selected' : '' }}>Google Form</option>
+                                        <option value="Survey" {{ old('inquiry_type') == 'Survey' ? 'selected' : '' }}>Survey</option>
+                                        <option value="Referral" {{ old('inquiry_type') == 'Referral' ? 'selected' : '' }}>Referral</option>
+                                        <option value="Walk-in" {{ old('inquiry_type') == 'Walk-in' ? 'selected' : '' }}>Walk-in</option>
+                                        <option value="Email" {{ old('inquiry_type') == 'Email' ? 'selected' : '' }}>Email</option>
+                                        <option value="WhatsApp" {{ old('inquiry_type') == 'WhatsApp' ? 'selected' : '' }}>WhatsApp</option>
+                                        <option value="Other" {{ old('inquiry_type') == 'Other' ? 'selected' : '' }}>Other</option>
+                                    </select>
+                                </div>
                                 <div class="md:col-span-2">
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Special Notes</label>
                                     <textarea name="special_notes" rows="3" placeholder="Any additional notes or comments about the student"
@@ -186,6 +201,7 @@
         var studyLevel = document.querySelector('select[name="study_level"]').value;
         var passport = document.querySelector('select[name="passport"]').value;
         var inquiryDate = document.querySelector('input[name="inquiry_date"]').value;
+        var inquiryType = document.querySelector('select[name="inquiry_type"]').value;
         var errors = [];
 
         // Capitalize first letters
@@ -209,7 +225,7 @@
         // Validate preferred universities (no numbers)
         if (/\d/.test(preferredUniversities.value)) errors.push('Preferred Universities cannot contain numbers.');
         // Required selects
-        if (!priority || !studyLevel || !passport || !inquiryDate) errors.push('Please fill all required fields.');
+        if (!priority || !studyLevel || !passport || !inquiryDate || !inquiryType) errors.push('Please fill all required fields.');
 
         if (errors.length > 0) {
             e.preventDefault();

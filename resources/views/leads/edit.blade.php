@@ -115,7 +115,7 @@
                     <div>
                         <label for="priority" class="block text-sm font-medium text-gray-700">Priority</label>
                         <select name="priority" id="priority"
-                                class="mt-1 block w-full rounded-md border {{ $errors->has('priority') ? 'border-red-300' : 'border-gray-200' }} bg-white px-3 py-2 focus:border-blue-500  focus:ring-blue-500 sm:text-sm">
+                                class="mt-1 block w-full rounded-md border {{ $errors->has('priority') ? 'border-red-300' : 'border-gray-200' }} bg-white px-3 py-2 focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
                             <option value="">Select</option>
                             <option value="very_high" {{ old('priority', $lead->priority) == 'very_high' ? 'selected' : '' }}>Very High</option>
                             <option value="high" {{ old('priority', $lead->priority) == 'high' ? 'selected' : '' }}>High</option>
@@ -124,6 +124,25 @@
                             <option value="very_low" {{ old('priority', $lead->priority) == 'very_low' ? 'selected' : '' }}>Very Low</option>
                         </select>
                         @error('priority') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                    </div>
+
+                    <!-- NEW: Inquiry Type -->
+                    <div>
+                        <label for="inquiry_type" class="block text-sm font-medium text-gray-700">Inquiry Type *</label>
+                        <select name="inquiry_type" id="inquiry_type" required
+                                class="mt-1 block w-full rounded-md border {{ $errors->has('inquiry_type') ? 'border-red-300' : 'border-gray-200' }} bg-white px-3 py-2 focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                            <option value="">Select inquiry type</option>
+                            <option value="Facebook" {{ old('inquiry_type', $lead->inquiry_type) == 'Facebook' ? 'selected' : '' }}>Facebook</option>
+                            <option value="Instagram" {{ old('inquiry_type', $lead->inquiry_type) == 'Instagram' ? 'selected' : '' }}>Instagram</option>
+                            <option value="Google Form" {{ old('inquiry_type', $lead->inquiry_type) == 'Google Form' ? 'selected' : '' }}>Google Form</option>
+                            <option value="Survey" {{ old('inquiry_type', $lead->inquiry_type) == 'Survey' ? 'selected' : '' }}>Survey</option>
+                            <option value="Referral" {{ old('inquiry_type', $lead->inquiry_type) == 'Referral' ? 'selected' : '' }}>Referral</option>
+                            <option value="Walk-in" {{ old('inquiry_type', $lead->inquiry_type) == 'Walk-in' ? 'selected' : '' }}>Walk-in</option>
+                            <option value="Email" {{ old('inquiry_type', $lead->inquiry_type) == 'Email' ? 'selected' : '' }}>Email</option>
+                            <option value="WhatsApp" {{ old('inquiry_type', $lead->inquiry_type) == 'WhatsApp' ? 'selected' : '' }}>WhatsApp</option>
+                            <option value="Other" {{ old('inquiry_type', $lead->inquiry_type) == 'Other' ? 'selected' : '' }}>Other</option>
+                        </select>
+                        @error('inquiry_type') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                     </div>
 
                     <!-- Status and Assignment -->

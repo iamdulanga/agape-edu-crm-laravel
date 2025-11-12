@@ -103,6 +103,12 @@
                     <div class="py-2 flex justify-between"><span class="text-gray-500">Preferred Universities</span><span
                             class="font-medium text-gray-800 text-right">{{ $lead->preferred_universities ?? 'None' }}</span>
                     </div>
+                    <div class="py-2 flex justify-between">
+                        <span class="text-gray-500">Inquiry Type</span>
+                        <span class="font-medium text-blue-700">
+                            {{ $lead->inquiry_type ?? 'N/A' }}
+                        </span>
+                    </div>
                     <div class="py-2 flex flex-col">
                         <span class="text-gray-500 mb-1">Special Notes</span>
                         <p class="font-medium text-gray-800 bg-gray-50 p-3 rounded-md">

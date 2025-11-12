@@ -29,6 +29,7 @@ class ExportController extends Controller
                 'Inquiry Date' => $lead->inquiry_date?->format('Y-m-d'),
                 'Study Level' => $lead->study_level,
                 'Priority' => $lead->priority,
+                'Inquiry Type' => $lead->inquiry_type,
                 'Status' => $lead->status,
                 'Preferred Universities' => $lead->preferred_universities,
                 'Special Notes' => $lead->special_notes,

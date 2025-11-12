@@ -24,6 +24,7 @@ class Lead extends Model
         'special_notes',
         'status',
         'avatar',
+        'inquiry_type',
     ];
 
     protected $casts = [
