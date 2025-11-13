@@ -50,7 +50,12 @@ class LeadSearchController extends Controller
         // Note: Assignment filter has been removed as the assigned_to column is obsolete
 
         $leads = $query->latest()->get();
+        $allLeads = Lead::all();
+        // Also get assignableUsers for consistency
+        $assignableUsers = \App\Models\User::whereHas('roles', function ($query) {
+            $query->whereIn('name', ['counselor', 'manager']);
+        })->get();
 
-        return view('leads.index', compact('leads'));
+        return view('leads.index', compact('leads', 'allLeads', 'assignableUsers'));
     }
 }

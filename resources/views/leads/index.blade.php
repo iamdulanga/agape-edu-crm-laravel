@@ -102,7 +102,7 @@
 
         <div class="space-y-6">
             <!-- Stats Cards -->
-            @include('leads.partials.stats-cards')
+            @include('leads.partials.stats-cards', ['leads' => $allLeads])
 
             <!-- Search and Filters -->
             @include('leads.partials.search-filters')

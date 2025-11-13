@@ -11,13 +11,18 @@ class LeadController extends Controller
 {
     public function index()
     {
-        $leads = Lead::latest()
-            ->get();
+        $allLeads = Lead::all();
+        $query = Lead::latest();
+        $status = request('status');
+        if ($status && in_array($status, ['new', 'contacted', 'qualified', 'converted', 'rejected'])) {
+            $query->where('status', $status);
+        }
+        $leads = $query->get();
         $assignableUsers = User::whereHas('roles', function ($query) {
             $query->whereIn('name', ['counselor', 'manager']);
         })->get();
 
-        return view('leads.index', compact('leads'));
+        return view('leads.index', compact('leads', 'assignableUsers', 'allLeads'));
     }
 
     public function create()
