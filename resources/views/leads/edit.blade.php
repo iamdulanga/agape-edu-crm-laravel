@@ -96,6 +96,12 @@
                                class="mt-1 block w-full rounded-md border {{ $errors->has('inquiry_date') ? 'border-red-300' : 'border-gray-200' }} bg-white px-3 py-2 focus:border-blue-500  focus:ring-blue-500 sm:text-sm">
                         @error('inquiry_date') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                     </div>
+                    <div>
+                        <label for="follow_up_date" class="block text-sm font-medium text-gray-700">Follow-up Date</label>
+                        <input type="date" name="follow_up_date" id="follow_up_date" value="{{ old('follow_up_date', $lead->follow_up_date ? $lead->follow_up_date->format('Y-m-d') : '') }}"
+                               class="mt-1 block w-full rounded-md border {{ $errors->has('follow_up_date') ? 'border-red-300' : 'border-gray-200' }} bg-white px-3 py-2 focus:border-green-500  focus:ring-green-500 sm:text-sm">
+                        @error('follow_up_date') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                    </div>
 
                     <!-- Academic Information -->
                     <div>

@@ -100,6 +100,9 @@
                     <div class="py-2 flex justify-between"><span class="text-gray-500">Inquiry Date</span><span
                             class="font-medium text-gray-800">{{ $lead->inquiry_date ? $lead->inquiry_date->format('Y-m-d') : 'N/A' }}</span>
                     </div>
+            <div class="py-2 flex justify-between"><span class="text-gray-500">Follow-up Date</span><span
+                class="font-medium text-green-700">{{ $lead->follow_up_date ? $lead->follow_up_date->format('Y-m-d') : 'N/A' }}</span>
+            </div>
                     <div class="py-2 flex justify-between"><span class="text-gray-500">Preferred Universities</span><span
                             class="font-medium text-gray-800 text-right">{{ $lead->preferred_universities ?? 'None' }}</span>
                     </div>

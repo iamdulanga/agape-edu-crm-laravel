@@ -121,6 +121,11 @@
                                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
                                 </div>
                                 <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Follow-up Date</label>
+                                    <input type="date" name="follow_up_date" value="{{ old('follow_up_date') }}"
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors">
+                                </div>
+                                <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Inquiry Type *</label>
                                     <select name="inquiry_type" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
                                         <option value="">Select inquiry type</option>
