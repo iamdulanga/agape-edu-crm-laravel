@@ -25,10 +25,12 @@ class Lead extends Model
         'status',
         'avatar',
         'inquiry_type',
+        'follow_up_date',
     ];
 
     protected $casts = [
         'inquiry_date' => 'date',
+        'follow_up_date' => 'date',
     ];
 
     /**
