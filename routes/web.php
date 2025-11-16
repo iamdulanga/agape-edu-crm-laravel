@@ -28,6 +28,9 @@ Route::middleware('auth')->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    // Notifications
+    Route::get('/notifications', [\App\Http\Controllers\NotificationController::class, 'index'])->name('notifications.index');
+
     // Optional: Redirect root to dashboard
     Route::get('/', [DashboardController::class, 'index'])->name('home');
 
