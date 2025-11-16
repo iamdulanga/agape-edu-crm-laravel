@@ -45,8 +45,9 @@ class LeadController extends Controller
             'priority' => 'nullable|in:very_high,high,medium,low,very_low',
             'preferred_universities' => 'nullable|string|max:1000',
             'special_notes' => 'nullable|string|max:2000',
-            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate avatar
-            'inquiry_type' => 'required|string|max:255', // Validate inquiry_type
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'inquiry_type' => 'required|string|max:255',
+            'follow_up_date' => 'nullable|date',
         ]);
 
         if ($request->hasFile('avatar')) {
@@ -86,7 +87,8 @@ class LeadController extends Controller
             'preferred_universities' => 'nullable|string|max:1000',
             'special_notes' => 'nullable|string|max:2000',
             'status' => 'nullable|in:new,contacted,qualified,converted,rejected',
-            'inquiry_type' => 'required|string|max:255', // Validate inquiry_type
+            'inquiry_type' => 'required|string|max:255',
+            'follow_up_date' => 'nullable|date',
         ]);
 
         $lead->update($validated);
