@@ -66,5 +66,8 @@ class DatabaseSeeder extends Seeder
 
         // Create sample leads
         \App\Models\Lead::factory(10)->create();
+
+        // Seed example notifications
+        $this->call(NotificationsSeeder::class);
     }
 }

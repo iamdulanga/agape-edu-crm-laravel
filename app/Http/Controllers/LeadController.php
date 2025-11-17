@@ -6,6 +6,10 @@ use App\Models\Activity;
 use App\Models\Lead;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\LeadUpdatedNotification;
+use App\Notifications\LeadCreatedNotification;
+use App\Notifications\LeadDeletedNotification;
 
 class LeadController extends Controller
 {
@@ -55,7 +59,13 @@ class LeadController extends Controller
             $validated['avatar'] = $avatarPath;
         }
 
-        Lead::create($validated);
+        $lead = Lead::create($validated);
+
+        // Notify all users about new lead creation
+        $recipients = User::all();
+        if ($recipients->isNotEmpty()) {
+            Notification::send($recipients, new LeadCreatedNotification($lead, $request->user()));
+        }
 
         return redirect()->route('leads.index')
             ->with('success', 'Lead created successfully!');
@@ -91,7 +101,32 @@ class LeadController extends Controller
             'follow_up_date' => 'nullable|date',
         ]);
 
+        // Capture original state before update
+        $original = $lead->getOriginal();
         $lead->update($validated);
+
+        // Build a diff of changed fields for notification
+        $changes = [];
+        foreach ($validated as $field => $newValue) {
+            // Normalize dates and numbers for comparison/display
+            $oldValue = $original[$field] ?? null;
+            if ($oldValue instanceof \DateTimeInterface) {
+                $oldValue = $oldValue->format('Y-m-d');
+            }
+            if ($newValue instanceof \DateTimeInterface) {
+                $newValue = $newValue->format('Y-m-d');
+            }
+            if ($oldValue != $newValue) {
+                $changes[$field] = ['old' => $oldValue, 'new' => $newValue];
+            }
+        }
+
+        if (!empty($changes)) {
+            $recipients = User::all(); // everyone sees the same notifications
+            if ($recipients->isNotEmpty()) {
+                Notification::send($recipients, new LeadUpdatedNotification($lead, $request->user(), $changes));
+            }
+        }
 
         return redirect()->route('leads.index')
             ->with('success', 'Lead updated successfully!');
@@ -99,7 +134,18 @@ class LeadController extends Controller
 
     public function destroy(Lead $lead)
     {
+        $actor = request()->user();
+        $leadName = $lead->full_name;
+        $leadId = $lead->id;
+
+        // Delete first
         $lead->delete();
+
+        // Notify all users that a lead was deleted
+        $recipients = User::all();
+        if ($recipients->isNotEmpty()) {
+            Notification::send($recipients, new LeadDeletedNotification($leadName, $actor, $leadId));
+        }
 
         return redirect()->route('leads.index')
             ->with('success', 'Lead deleted successfully!');
@@ -112,8 +158,8 @@ class LeadController extends Controller
             'status' => 'required|in:new,contacted,qualified,converted,rejected',
         ]);
 
-        $oldStatus = $lead->status;
-        $lead->update(['status' => $request->status]);
+    $oldStatus = $lead->status;
+    $lead->update(['status' => $request->status]);
 
         // Log status change - FIXED: use auth()->id() directly
         Activity::create([
@@ -123,6 +169,13 @@ class LeadController extends Controller
             'description' => "Status changed from {$oldStatus} to {$request->status}",
             'metadata' => ['old_status' => $oldStatus, 'new_status' => $request->status],
         ]);
+
+        // Broadcast a unified update notification (status change)
+        $recipients = User::all();
+        if ($recipients->isNotEmpty()) {
+            $changes = ['status' => ['old' => (string) $oldStatus, 'new' => (string) $request->status]];
+            Notification::send($recipients, new LeadUpdatedNotification($lead, $request->user(), $changes));
+        }
 
         return redirect()->route('leads.index')
             ->with('success', "Lead status updated to {$request->status}!");
@@ -152,6 +205,13 @@ class LeadController extends Controller
                     'description' => "Status changed from {$oldStatus} to {$request->status}",
                     'metadata' => ['old_status' => $oldStatus, 'new_status' => $request->status],
                 ]);
+
+                // Broadcast unified update notification for each changed lead
+                $recipients = User::all();
+                if ($recipients->isNotEmpty()) {
+                    $changes = ['status' => ['old' => (string) $oldStatus, 'new' => (string) $request->status]];
+                    Notification::send($recipients, new LeadUpdatedNotification($lead, $request->user(), $changes));
+                }
 
                 $updatedCount++;
             }

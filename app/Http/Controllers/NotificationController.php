@@ -10,14 +10,10 @@ class NotificationController extends Controller
     public function index()
     {
         $user = Auth::user();
-        
-        // Get all unread follow-up due notifications from today
-        $notifications = $user->unreadNotifications()
-            ->where('type', 'App\\Notifications\\FollowUpDueNotification')
-            ->whereDate('created_at', today())
-            ->where('data->type', 'follow_up_due')
-            ->get();
-        
+
+        // List unread notifications (most recent first). You can narrow by type if needed.
+        $notifications = $user->unreadNotifications()->latest()->get();
+
         return view('notifications.index', compact('notifications'));
     }
 
@@ -41,11 +37,9 @@ class NotificationController extends Controller
     public function markAllAsRead()
     {
         $user = Auth::user();
-        $user->unreadNotifications()
-            ->where('type', 'App\\Notifications\\FollowUpDueNotification')
-            ->whereDate('created_at', today())
-            ->update(['read_at' => now()]);
-        
+        // Mark all unread notifications as read for this user
+        $user->unreadNotifications->each->markAsRead();
+
         return redirect()->route('notifications.index')->with('success', 'All notifications marked as read.');
     }
 }
