@@ -25,6 +25,8 @@ class LeadFactory extends Factory
             'preferred_universities' => $this->faker->sentence(),
             'special_notes' => $this->faker->paragraph(),
             'status' => $this->faker->randomElement(['new', 'contacted', 'qualified', 'converted', 'rejected']),
+            'inquiry_type' => $this->faker->randomElement(['Study Abroad', 'Student Visa', 'Tourist Visa', 'Work Visa']),
+            'follow_up_date' => null,
         ];
     }
 }

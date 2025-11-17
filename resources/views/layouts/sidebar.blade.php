@@ -70,15 +70,10 @@
                 <!-- Notifications -->
                 <li>
                     @php
-                        $today = now()->toDateString();
-                        $unreadFollowUps = auth()->user()->notifications
+                        $unreadFollowUps = auth()->user()->unreadNotifications()
                             ->where('type', 'App\\Notifications\\FollowUpDueNotification')
-                            ->filter(function ($notification) use ($today) {
-                                return isset($notification->data['type'])
-                                    && $notification->data['type'] === 'follow_up_due'
-                                    && $notification->created_at->toDateString() === $today
-                                    && $notification->read_at === null;
-                            })->count();
+                            ->whereDate('created_at', today())
+                            ->count();
                     @endphp
                     <a href="{{ route('notifications.index') }}"
                         class="flex items-center px-3 py-3 rounded-lg transition-all duration-200
