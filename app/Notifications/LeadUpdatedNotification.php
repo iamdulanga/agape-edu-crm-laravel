@@ -8,7 +8,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 
-class LeadUpdatedNotification extends Notification implements ShouldQueue
+class LeadUpdatedNotification extends Notification
 {
     use Queueable;
 

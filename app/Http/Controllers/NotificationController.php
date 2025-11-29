@@ -11,10 +11,37 @@ class NotificationController extends Controller
     {
         $user = Auth::user();
 
-        // List unread notifications (most recent first). You can narrow by type if needed.
-        $notifications = $user->unreadNotifications()->latest()->get();
+        $allowedTypes = [
+            'lead_created',
+            'lead_updated',
+            'lead_deleted',
+            'follow_up_due',
+            'follow_up_due_soon',
+        ];
 
-        return view('notifications.index', compact('notifications'));
+        $type = request('type');
+        $group = (bool) request('group');
+
+        $query = $user->unreadNotifications()->latest();
+
+        if ($type && in_array($type, $allowedTypes, true)) {
+            $query->where('data->type', $type);
+        }
+
+        $notifications = $query->get();
+
+        // Optionally group in controller for convenience
+        $grouped = $group ? $notifications->groupBy(function ($n) {
+            return $n->data['type'] ?? 'other';
+        }) : collect();
+
+        return view('notifications.index', [
+            'notifications' => $notifications,
+            'grouped' => $grouped,
+            'group' => $group,
+            'type' => $type,
+            'types' => $allowedTypes,
+        ]);
     }
 
     public function markAsRead($id)
